@@ -18,5 +18,3 @@ user_name: str = input("What is your name? ")
 user_age: int = input("How old are you? ")
 say_hello(user_name, str(user_age))
 print_double_number(int(user_age))
-# print(double_number(user_age))
-# Ask the user name
