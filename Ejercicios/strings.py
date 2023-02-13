@@ -28,4 +28,3 @@ print("El texto " , textoPalindromo , is_palindromo(textoPalindromo))
 frase = "anita lava la tina"
 print(is_palindromo_plain(frase))
 
-pip ins
