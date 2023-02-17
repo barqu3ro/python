@@ -38,9 +38,6 @@ while True:
                 
             window['-OUTPUT-'].update(output_string)
 
-            print(input_value)
-
-
-    
+            print(input_value)    
 
 window.close()
