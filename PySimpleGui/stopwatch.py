@@ -3,11 +3,11 @@ import PySimpleGUI as sg
 sg.theme('black')
 
 layout = [
-    [sg.Image('')],
-    [sg.VPush],
+#[sg.Image('../images/pngegg.png')],
+    [sg.VPush()],
     [sg.Text('time')],
     [sg.Button('Start'), sg.Button('Lap')],
-    [sg.VPush],
+    [sg.VPush]
 ]
 
 window = sg.Window(
@@ -15,7 +15,7 @@ window = sg.Window(
     layout,
     size=(300, 300),
     no_titlebar=True,
-    element_justification='center',
+    element_justification='center'
 )
 
 while True:
