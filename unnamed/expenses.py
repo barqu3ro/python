@@ -6,4 +6,3 @@ def AgregarTipoGasto (TipoGasto):
 
 
 print(tipos_de_gasto)
-
