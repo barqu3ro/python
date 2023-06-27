@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <title>Calculator</title>
+</head>
+
+<body>
+    <div class="flex justify-center items-center h-screen">
+        <form class="bg-gray-100 p-6 rounded-lg shadow-lg" method="POST" action="/calculate">
+            <h1 class="text-4xl mb-4">Calculator</h1>
+            <div>
+                <label for="num1">Number 1:</label>
+                <input id="num1" name="num1" type="number" class="border border-gray-300 p-2" required>
+            </div>
+            <div>
+                <label for="num2">Number 2:</label>
+                <input id="num2" name="num2" type="number" class="border border-gray-300 p-2" required>
+            </div>
+            <div>
+                <label for="operator">Operator:</label>
+                <select id="operator" name="operator" class="border border-gray-300 p-2" required>
+                    <option value="add">+</option>
+                    <option value="subtract">-</option>
+                    <option value="multiply">*</option>
+                    <option value="divide">/</option>
+                </select>
+            </div>
+            <div>
+                <button type="submit" class="bg-blue-500 text-white p-2 mt-4">Calculate</button>
+            </div>
+            {% if result %}
+            <div class="mt-4">
+                <p class="text-lg">Result: {{ result }}</p>
+            </div>
+            {% endif %}
+        </form>
+    </div>
+</body>
+
+</html>
