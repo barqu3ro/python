@@ -1,58 +1,50 @@
 import math
 
-# Riesgo 1 : Jorge 
-voted_risk = {
-    "Nombre": "Jorge",
-    "Riesgo": {
-        "ID": 1,
-        "Riesgo": 1,
-        "Entidad": "BAI11 Gestionar los proyectos",
-        "Proceso": "BAI11.09 Cerrar un proyecto o iteración",
-        "FactorRiesgo": "",
+
+# Riesgo 1 : Johnny 
+voted_risk = {    
+    "NombreVotante": "Johnny ",
+    "Riesgo": 
+    {
+        "Proceso Nivel 1": "BAI11 Gestionar los proyectos",
+        "Proceso nivel 2": "BAI11.01 Mantener un enfoque estándar en la gestión de proyectos.",
+        "Categoría":"Riesgo Operativo",
+        "Riesgo":"Proyecto iniciado con documentación insuficiente",
+        "FactorRiesgo": "Proyecto iniciado sin el acta de constitución",
         "Impacto": 5,
         "Probabilidad": 1
     }
 }
 
-# Riesgo 2 : Joma 
-voted_risk_2 = {
-    "Nombre": "Joma",
-    "Riesgo":
-        {
-            "ID": 1,
-            "Riesgo": 1,
-            "Entidad": "BAI11 Gestionar los proyectos",
-            "Proceso": "BAI11.09 Cerrar un proyecto o iteración",
-            "FactorRiesgo": "",
-            "Impacto": 2,
-            "Probabilidad": 5
-        }
+# Riesgo 2 : Jorge 
+voted_risk = {    
+    "NombreVotante": "Jorge",
+    "Riesgo": 
+    {
+        "Proceso Nivel 1": "BAI11 Gestionar los proyectos",
+        "Proceso nivel 2": "BAI11.01 Mantener un enfoque estándar en la gestión de proyectos.",
+        "Categoría":"Riesgo Operativo",
+        "Riesgo":"Proyecto iniciado con documentación insuficiente",
+        "FactorRiesgo": "Proyecto iniciado sin el acta de constitución",
+        "Impacto": 2,
+        "Probabilidad": 3
+    }
 }
 
-# Riesgo 3 : Jose
-voted_risk_3 = {
-    "Nombre": "Jose",
-    "Riesgo":
-        {
-            "ID": 1,
-            "Riesgo": 1,
-            "Entidad": "BAI11 Gestionar los proyectos",
-            "Proceso": "BAI11.09 Cerrar un proyecto o iteración",
-            "FactorRiesgo": "",
-            "Impacto": 3,
-            "Probabilidad": 5
-        }
-}
 
 # Recibe una lista de riesgos y retorna el valor
 def calculate_risk_value (risks):    
     voters = 0
     total_values = 0
     for risk in risks:
-        risk_value = risk["Riesgo"]["Impacto"] * risk["Riesgo"]["Probabilidad"]
-        print (risk_value)
-        total_values += risk_value
-        voters += 1
+        if risk > 0 and risk <=5:
+            risk_value = risk["Riesgo"]["Impacto"] * risk["Riesgo"]["Probabilidad"]
+            print (risk_value)
+            total_values += risk_value
+            voters += 1
+        else:
+            print ("Número en rango no válido. Valor recibido = ",str(risk))
+            
 
     # Promedio de valores
     print ( total_values / voters)
