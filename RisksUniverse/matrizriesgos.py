@@ -1,6 +1,4 @@
 import math
-
-
 # Riesgo 1 : Johnny 
 voted_risk = {    
     "NombreVotante": "Johnny ",
