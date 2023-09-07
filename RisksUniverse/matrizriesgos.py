@@ -64,7 +64,7 @@ def define_risk_type(value):
         return "Moderado"
     elif value >= 9 and value < 13:
         return "Alto"
-    elif value >= 13:
+    elif value >= 20:
         return "Extremo"
 
 
