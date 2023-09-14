@@ -2,7 +2,7 @@ import pandas as pd
 import json
 
 # Cargar el archivo Excel
-excel_file = "Universo de riesgos.xlsx"
+excel_file = "data/Universo de riesgos.xlsx"
 sheet_name = "Mapa de Riesgos Auditoría de TI"
 column_name = "Riesgo"
 
