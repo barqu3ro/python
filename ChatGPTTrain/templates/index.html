@@ -1,0 +1,58 @@
+<!-- templates/index.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PDF Reader with ChatGPT</title>
+</head>
+<body>
+    <h1>PDF Reader with ChatGPT</h1>
+    <form id="upload-form" action="/upload" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".pdf">
+        <button type="submit">Upload PDF</button>
+    </form>
+    <hr>
+    <div id="pdf-text"></div>
+    <hr>
+    <form id="question-form">
+        <input type="text" name="question" placeholder="Ask a question">
+        <button type="submit">Ask</button>
+    </form>
+    <div id="answer"></div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $("#upload-form").submit(function (e) {
+            e.preventDefault();
+            var formData = new FormData(this);
+
+            $.ajax({
+                url: "/upload",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    $("#pdf-text").text(data.text);
+                },
+            });
+        });
+
+        $("#question-form").submit(function (e) {
+            e.preventDefault();
+            var question = $("input[name='question']").val();
+            var pdfText = $("#pdf-text").text();
+
+            $.ajax({
+                url: "/ask",
+                type: "POST",
+                data: JSON.stringify({ pdf_text: pdfText, question: question }),
+                contentType: "application/json",
+                success: function (data) {
+                    $("#answer").text("Answer: " + data.answer);
+                },
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,13 +1,6 @@
 import math
-<<<<<<< HEAD
-# Riesgo 1 : Johnny 
-voted_risk = {    
-=======
 
-
-# Riesgo 1 : Johnny
 voted_risk = {
->>>>>>> bebf840bfaee42052a00605006fd05ef39d4c4d8
     "NombreVotante": "Johnny ",
     "Riesgo":
     {
@@ -57,9 +50,8 @@ def calculate_risk_value(risks):
     # return redondeado al entero próximo
     return math.ceil(total_values / voters)
 
+
 # Con base en el valor obtenido se mapea el tipo de riesgo
-
-
 def define_risk_type(value):
     if value == 1:
         return "Muy bajo"
@@ -69,7 +61,7 @@ def define_risk_type(value):
         return "Moderado"
     elif value >= 9 and value < 13:
         return "Alto"
-    elif value >= 20:
+    elif value >= 20: 
         return "Extremo"
 
 
