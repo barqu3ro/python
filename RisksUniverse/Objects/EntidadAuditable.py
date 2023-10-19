@@ -20,9 +20,10 @@ class entidad_auditable:
     def description(self, newDescription):
         self.Description = newDescription
 
-
+    @name.getter
     def name(self):
         return self.__name
 
-    def getDescription (self):
+    @description.getter
+    def Description (self):
         return self.Description
