@@ -11,11 +11,7 @@ class factor_riesgo:
     @property
     def name (self):
         return self.__name
-
-    @name.getter
-    def name(self):
-        return self.__name
-
+  
     @name.setter
     def name(newName):
         self.__name = newName
@@ -23,10 +19,7 @@ class factor_riesgo:
     # RiskID Property
     @property
     def riskId (self):        
-        return self.__riskId
-
-    @riskId.getter
-    def riskId (self):
+        "Propiedad ID del Factor del Riesgo"
         return self.__riskId
 
     @riskId.setter
@@ -40,12 +33,9 @@ class factor_riesgo:
     # Description Property
     @property
     def description (self):
+        "Propiedad Descripción del Factor de Riesgo"
         return self.__description
 
-    
-    @description.getter
-    def description (self):
-        return self.__description
 
     @description.setter
     def description (self, newDescription):
