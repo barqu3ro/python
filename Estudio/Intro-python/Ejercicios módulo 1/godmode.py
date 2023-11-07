@@ -16,8 +16,9 @@
 # espejo de 12 es 21 y el número primo en la posición 21ª es el 73.
 
 
-
+# Lista de números primos
 primos = []
+lista_sheldon = []
 
 # Función para calcular si un número es primo
 def is_prime(number):
@@ -31,7 +32,6 @@ def is_prime(number):
                 return False
     return True
 
-
 # Función para calcular el producto de los dígitos de un número
 def m(number):
     product = 1
@@ -39,52 +39,78 @@ def m(number):
         product *= int(digit)
     return product
 
-
+# Función para calcular el número espejo de un número       
 def r(number):
     return int(str(number)[::-1])
 
-# mejora: generar rango 
+# Función para generar una lista de números primos
 def generar_lista_primos(start = 2 ,  end = 100 ):
-    primos.append(1)
+    #primos.append(1)
     for i in range(start, end):
         if is_prime(i):
             primos.append(i)
     return primos
 
+# Función para verificar si un número es espejo
+def verificarNumeroEspejo(number):
+    #print(number)
+    rNumber = r(number)
+    posMirror = r(primos.index(rNumber) + 1)
+    return primos[posMirror - 1] == number
+
+
+def generarSheldonNumbers (start = 0 , end = 100):
+    for i in range(start,end):
+        if verificarNumeroSheldon(i):
+            lista_sheldon.append(i)
+
+    return lista_sheldon
+
+
+
+# Función para verificar si un número cumple las 3 condiciones de la conjetura de Sheldon
 def verificarNumeroSheldon(number):
     primeraCondicion = segundaCondicion = terceraCondicion = False
 
-    # Se evalua primera condición
-    # this works
-    if (is_prime(number)): 
-        print("El número {} es primo".format(number))
-        primeraCondicion = True
+    # # this works
+    # if (is_prime(number)): 
+    #     print("El número {} es primo".format(number))
+    #     primeraCondicion = True
 
-    # Se evalua segunda condición
-    # this also works
-    if (m(number) == primos.index(number)):         
-        print("El producto de sus dígitos ({}) es igual a su posición en la lista de todos los primos ({})".format(m(number), primos.index(number)))
-        segundaCondicion = True
-    else:
-        print("El producto de sus dígitos ({0}) NO es igual a su posición en la lista de todos los primos ({1})".format(m(number), primos.index(number)))
-
-    # Se evalua tercera condición 
-    # this isn't working as intended
-    if r(number) == primos.index(r(number)):
-        print("El número espejo de otro será el conseguido al invertir el orden de las [llamemos a esta operación r()]")
-        terceraCondicion = True
- 
-    # cumple las 3 condiciones
-    if primeraCondicion and segundaCondicion and terceraCondicion:      
-        return True
+    # # this also works
+    # if (m(number) == primos.index(number) + 1):         
+    #     print("El producto de sus dígitos ({}) es igual a su posición en la lista de todos los primos ({})".format(m(number), primos.index(number) + 1))
+    #     segundaCondicion = True
+    # else:
+    #     print("El producto de sus dígitos ({}) NO es igual a su posición en la lista de todos los primos ({})".format(m(number), primos.index(number) + 1))       
     
+    # terceraCondicion = verificarNumeroEspejo(number)
+
+    if (is_prime(number) and m(number) == primos.index(number) + 1 and verificarNumeroEspejo(number)): 
+        #print("El número {} cumple las 3 condiciones".format(number))
+        return True
+    # cumple las 3 condiciones
+    # if primeraCondicion and segundaCondicion and terceraCondicion:      
+    #     return True    
     return False
 
 
 
-#print(generar_lista_primos())
-#print(primos.index(73))
-generar_lista_primos(2, 1000)
-verificarNumeroSheldon(73)
+generar_lista_primos(end = 100000)
+
+print(primos)
+
+# # caso específico
+# if verificarNumeroSheldon(73): 
+#     print("El número 73 cumple la conjetura de Sheldon")
+# else:
+#     print("El número 73 NO cumple la conjetura de Sheldon")
+
+# caso general
+lista = generarSheldonNumbers (end = 100000)
+print (lista)
+#verificarNumeroSheldon(73)
+
+#print(lista)
 
 
