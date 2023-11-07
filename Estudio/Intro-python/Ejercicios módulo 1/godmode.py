@@ -1,4 +1,4 @@
-# God mode:
+ # God mode:
 # (3 puntos) El número de Sheldon: En la serie “Big Bang Theory” se conjeturó que el número
 # 23 posee unas características únicas que no posee ningún otro número (link a la conjetura
 # original). En 2019 Pomerance y Spicer demostraron que solo el 73 cumple las condiciones de
@@ -40,19 +40,51 @@ def m(number):
     return product
 
 
-# Main program
-def Main():
-    primos = []
+def r(number):
+    return int(str(number)[::-1])
 
-    # Calcular los primos entre 1 y 1.000.000
-    for i in range(1, 1000000):
+# mejora: generar rango 
+def generar_lista_primos(start = 2 ,  end = 100 ):
+    primos.append(1)
+    for i in range(start, end):
         if is_prime(i):
-            primos.append(i)    # aquí agrego el número primo a la lista de primos para validar la primera condición
+            primos.append(i)
+    return primos
+
+def verificarNumeroSheldon(number):
+    primeraCondicion = segundaCondicion = terceraCondicion = False
+
+    # Se evalua primera condición
+    # this works
+    if (is_prime(number)): 
+        print("El número {} es primo".format(number))
+        primeraCondicion = True
+
+    # Se evalua segunda condición
+    # this also works
+    if (m(number) == primos.index(number)):         
+        print("El producto de sus dígitos ({}) es igual a su posición en la lista de todos los primos ({})".format(m(number), primos.index(number)))
+        segundaCondicion = True
+    else:
+        print("El producto de sus dígitos ({0}) NO es igual a su posición en la lista de todos los primos ({1})".format(m(number), primos.index(number)))
+
+    # Se evalua tercera condición 
+    # this isn't working as intended
+    if r(number) == primos.index(r(number)):
+        print("El número espejo de otro será el conseguido al invertir el orden de las [llamemos a esta operación r()]")
+        terceraCondicion = True
+ 
+    # cumple las 3 condiciones
+    if primeraCondicion and segundaCondicion and terceraCondicion:      
+        return True
+    
+    return False
 
 
-    # Calcular los números de Sheldon
-    for i in primos:
-        # aquí quedé me voy a dormir 
-        
+
+#print(generar_lista_primos())
+#print(primos.index(73))
+generar_lista_primos(2, 1000)
+verificarNumeroSheldon(73)
 
 
