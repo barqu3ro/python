@@ -14,7 +14,7 @@
 # esta operación r()]. El primo en la posición de su número espejo es igual al número
 # espejo de su posición. Por ejemplo: r(73) = 37, la posición del 37 es la doceava, el
 # espejo de 12 es 21 y el número primo en la posición 21ª es el 73.
-
+import time
 
 # Lista de números primos
 primos = []
@@ -77,7 +77,11 @@ def verificarNumeroSheldon(number):
 
 # Main Code
 # Performance: para evitar que el programa tarde mucho en ejecutarse
-top = 100000
+
+top = 10000  # duración: 0.8 segundos
+#top = 100000  # duración: 65 segundos
+#top = 1000000  # duración: round 60 minutes
+start_time = time.time()
 
 # Genera la lista de números primos en el rango definido
 generaListaPrimos(end = top)
@@ -87,6 +91,8 @@ print(primos)
 listaSheldon = generarSheldonNumbers (end = top)
 print ("Números que cumplen con las 3 condiciones")
 print (listaSheldon)
+
+print("--- %s seconds ---" % (time.time() - start_time))
 
 
 
