@@ -6,11 +6,14 @@
 
 #create a data frame using the csv file in this folder
 import pandas as pd
+import os
 #import pyodbc
 import sqlalchemy
 import urllib 
 
 # Create a dataframe from the csv file
-df = pd.read_csv('big_bang_theory_dataset.csv')
+df = pd.read_csv('data/big_bang_theory_dataset.csv')
 
-df.head()
+print(os.getcwd())
+
+#df.head()

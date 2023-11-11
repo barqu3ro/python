@@ -1,4 +1,4 @@
- # God mode:
+# God mode:
 # (3 puntos) El número de Sheldon: En la serie “Big Bang Theory” se conjeturó que el número
 # 23 posee unas características únicas que no posee ningún otro número (link a la conjetura
 # original). En 2019 Pomerance y Spicer demostraron que solo el 73 cumple las condiciones de
@@ -20,7 +20,7 @@
 primos = []
 lista_sheldon = []
 
-# Función para calcular si un número es primo
+# Calcular si un número es primo
 def is_prime(number):
     if number < 2:
         return False
@@ -32,18 +32,18 @@ def is_prime(number):
                 return False
     return True
 
-# Función para calcular el producto de los dígitos de un número
+# Calcular el producto de los dígitos de un número
 def m(number):
     product = 1
     for digit in str(number):
         product *= int(digit)
     return product
 
-# Función para calcular el número espejo de un número       
+# Calcular el número espejo de un número       
 def r(number):
     return int(str(number)[::-1])
 
-# Función para generar una lista de números primos
+# Generar una lista de números primos
 def generaListaPrimos(start = 2 ,  end = 100 ):
     #primos.append(1)
     for i in range(start, end):
@@ -51,7 +51,7 @@ def generaListaPrimos(start = 2 ,  end = 100 ):
             primos.append(i)
     return primos
 
-# Función para verificar si un número es espejo
+# Verificr si un número es espejo
 def verificarNumeroEspejo(number):
     #print(number)
     rNumber = r(number)
@@ -60,7 +60,6 @@ def verificarNumeroEspejo(number):
 
 # Función para recorrer los números y determinar cuáles cumplen con las características
 # del número de Sheldon
-
 def generarSheldonNumbers (start = 0 , end = 100):
     for i in range(start,end):
         if verificarNumeroSheldon(i):
@@ -77,12 +76,15 @@ def verificarNumeroSheldon(number):
 
 
 # Main Code
+# Performance: para evitar que el programa tarde mucho en ejecutarse
+top = 100000
+
 # Genera la lista de números primos en el rango definido
-generaListaPrimos(end = 100000)
-print("Conjunto de números primos generados para el rango definido")
+generaListaPrimos(end = top)
+print("Conjunto de números primos encontrados para el rango definido")
 print(primos)
 
-listaSheldon = generarSheldonNumbers (end = 100000)
+listaSheldon = generarSheldonNumbers (end = top)
 print ("Números que cumplen con las 3 condiciones")
 print (listaSheldon)
 
