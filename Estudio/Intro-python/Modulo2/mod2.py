@@ -10,10 +10,38 @@ import os
 #import pyodbc
 import sqlalchemy
 import urllib 
+from sqlalchemy import create_engine
 
-# Create a dataframe from the csv file
-df = pd.read_csv('data/big_bang_theory_dataset.csv')
+# leer el fichero csv
+df = pd.read_csv('/Users/jorgebarquero/GitRepos/python/Estudio/Intro-python/Modulo2/data/big_bang_theory_dataset.csv')
 
 print(os.getcwd())
 
 #df.head()
+
+
+
+# Define the MySQL database details
+username = 'root'
+password = 'TESTDBPWD01'
+host = 'localhost'
+port = '3306'
+database = 'my-mysql'
+
+# Create the connection string
+connection_string = f'mysql+pymysql://{username}:{password}@{host}:{port}/{database}'
+
+# Create the database connection
+engine = create_engine(connection_string)
+
+# Create the table
+df.to_sql('big_bang_theory_dataset', engine, index=False, if_exists='replace')
+
+# Read the table
+df = pd.read_sql('big_bang_theory_dataset', engine)
+
+# Show the table
+print(df)
+
+
+## Estoy recibiendo access denied --- mañana sigo avanzando 
