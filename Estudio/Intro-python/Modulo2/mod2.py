@@ -1,47 +1,45 @@
-# Conecta a esa base de datos con pyodbc o SQL Alchemy. Crea una tabla en la base
-# de datos desde un data frame de pandas creado a partir de los datos del fichero
-# big_bang_theory_dataset.csv que hay en el aula virtual.
-
-
-
-#create a data frame using the csv file in this folder
-import pandas as pd
 import os
-#import pyodbc
-import sqlalchemy
-import urllib 
-from sqlalchemy import create_engine
+import pandas as pd
 
-# leer el fichero csv
-df = pd.read_csv('/Users/jorgebarquero/GitRepos/python/Estudio/Intro-python/Modulo2/data/big_bang_theory_dataset.csv')
+# Get the current working directory
+cwd = os.getcwd()
+
+# Define the relative path to the csv file
+csv_path = os.path.join(cwd, 'data', 'big_bang_theory_dataset.csv')
+
+# Load the csv file into a pandas dataframe
+df = pd.read_csv(csv_path)
+
+
+
 
 print(os.getcwd())
 
-#df.head()
+df.head()
 
 
 
-# Define the MySQL database details
-username = 'root'
-password = 'TESTDBPWD01'
-host = 'localhost'
-port = '3306'
-database = 'my-mysql'
+# # Define the MySQL database details
+# username = 'root'
+# password = 'TESTDBPWD01'
+# host = 'localhost'
+# port = '3306'
+# database = 'my-mysql'
 
-# Create the connection string
-connection_string = f'mysql+pymysql://{username}:{password}@{host}:{port}/{database}'
+# # Create the connection string
+# connection_string = f'mysql+pymysql://{username}:{password}@{host}:{port}/{database}'
 
-# Create the database connection
-engine = create_engine(connection_string)
+# # Create the database connection
+# engine = create_engine(connection_string)
 
-# Create the table
-df.to_sql('big_bang_theory_dataset', engine, index=False, if_exists='replace')
+# # Create the table
+# df.to_sql('big_bang_theory_dataset', engine, index=False, if_exists='replace')
 
-# Read the table
-df = pd.read_sql('big_bang_theory_dataset', engine)
+# # Read the table
+# df = pd.read_sql('big_bang_theory_dataset', engine)
 
-# Show the table
-print(df)
+# # Show the table
+# print(df)
 
 
-## Estoy recibiendo access denied --- mañana sigo avanzando 
+# ## Estoy recibiendo access denied --- mañana sigo avanzando 
