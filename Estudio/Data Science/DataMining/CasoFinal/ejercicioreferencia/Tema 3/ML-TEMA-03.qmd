@@ -1,0 +1,2012 @@
+---
+title: "DATA MINING Y MACHINE LEARNING"
+subtitle: "Tema 3: Machine Learning Supervisado"
+author: "Ramón A. Carrasco"
+institute: "ENAE Business School"
+number-sections: true
+format:
+  revealjs:
+    theme: simple
+    scrollable: true
+    number-sections: true
+    logo: "images/logo-enae.jpg"
+    css: "images/logo-enae.css"
+    toc: true
+    toc-depth: 1
+    toc-title: "Índice"
+    code-overflow: "wrap"
+    code-fold: false
+    slide-number: true
+    controls: true
+    pdf-separate-fragments: true
+---
+
+# Machine learning supervisado
+
+## Introducción {.smaller}
+
+-   Es un aspecto del Machine Learning (ML) que consiste en inferir una función a partir de un conjunto de datos etiquetados
+-   Estos datos están formados por un vector de valores (variables) y un atributo de clase
+-   La función inferida debe ser capaz de predecir la clase a partir de los valores observados
+-   Debe ser capaz de generalizar con instancias no vistas
+    -   Problema de overfitting (sobreajuste)
+-   Para que podamos resolver este tipo de problemas, los datos han de estar etiquetados de antemano
+-   El etiquetado de datos es un negocio millonario hoy día
+-   Existen otras opciones como el etiquetado automático
+
+## Tipos de machine learning supervisado {.smaller}
+
+-   Plateamiento del problema de machine learnig supervisado
+
+    ```{=tex}
+    \begin{equation}\label{eq:ml}
+    T = x_1, x_2,.., x_n, 
+    X = x_1, x_2,.., x_n
+    \end{equation}
+    ```
+    A partir de un conjunto de ejemplos de la tabla `T` el modelo aprende: y = f(X) y: es clase objetivo o varible dependiente X: variables independientes
+
+-   Tipos:
+
+    -   Clasificación: Si la atributo `y` es discreto o nominal
+    -   Predicción: Si `y` es continuo
+
+-   En el proceso hay dos fases:
+
+    1.  Aprender la función `f` con los datos históricos de `T`
+    2.  Aplicar dicha función sobre nuevos casos (o filas) de la tabla `X_futuro` con el mismo formato de `X` para calcular el valor correspondiente `y`
+
+## Ejemplos aplicación de ML Supervisado {.smaller}
+
+-   En un hospital se miden 17 variables distintas (edad, presión sanguínea, etc.) de los pacientes de nuevo ingreso
+-   Se necesita un sistema de toma de decisiones: ¿el paciente debe ser ingresado en una unidad de cuidados intensivos?
+-   Como las camas de la UCI son muy caras, el sistema debe ser capaz de identificar aquellos pacientes que no vayan a sobrevivir más de un mes
+-   El problema consiste en identificar a los pacientes de alto-riesgo y discriminarlo de aquellos de bajo-riesgo
+
+## Ejemplos aplicación de ML Supervisado 2 {.smaller}
+
+-   Una compañía de tarjetas de crédito recibe cientos de solicitudes diarias con datos de sus clientes:
+    -   Edad
+    -   Ingresos anuales
+    -   Estado civil
+    -   Calificación crediticia...
+-   El sistema debe ser capaz de identificar aquellas solicitudes que deben ser aprobadas y aquéllas que deben ser rechazadas
+
+## Conceptos básicos de clasificación
+
+-   Objetivo principal: Aprender un modelo a partir de datos previamente etiquetados
+-   ¿Con qué fin? Clasificar instancias **no vistas previamente** sin etiqueta de clase
+-   Es similar al proceso de aprendizaje humano: nosotros aprendemos de experiencias previas y un modelo de clasificación de datos previamente etiquetados
+
+## Concepto de apredizaje {.smaller}
+
+-   Aprendizaje: Dado un conjunto de datos D, una tarea T y una medida de rendimiento M, aprender un modelo quiere decir que podamos hacer la tarea T mejor que si no tuviéramos el modelo de acuerdo a la medida M
+-   Asumimos que el conjunto de datos del que disponemos sigue la misma distribución que los datos reales:
+    -   A veces esta condición no se cumple
+    -   Si la violación de esta condición es muy fuerte la capacidad predictiva del modelo será muy pobre
+    -   Por eso es importante evitar el overfitting...
+
+## Proceso de aprendizaje en clasificación {.smaller}
+
+-   Aprendizaje de un modelo con un conjunto de datos de entrenamiento. Existen diversos enfoques de este proceso (validación cruzada, etc)
+-   Validación del modelo en un conjunto de instancias de test (no vistas hasta ese momento)
+
+![](images/image-1966418116.png)
+
+## Proceso de aprendizaje en clasificación. Validación {.smaller}
+
+-   Tenemos que confrontar lo predicho con lo que realmente estaba clasificado cada una de las filas
+-   Esto es posible ya que el conjunto de test tiene el mismo origen que el de entrenamiento
+-   El conjunto de test cumple la función de validar cómo se va a comportar el modelo ante datos nuevos que no conoce
+
+![](images/image-919922696.png)
+
+## Proceso de aplicación modelo de clasificación
+
+-   Los modelos de preprocesamiento (si es que ha sido necesario hacerlo) y de machine learning son aplicados a los datos reales para que prediga la clase objetivo y su probabilidad
+
+![](images/image-1647855682.png)
+
+## Matriz de confusión
+
+-   Nos permite validar un clasificador
+-   Para un clase objetivo binaria sería:,
+
+![](images/image-1840767685.png)
+
+## Matriz de confusión. Medidas asociadas {.smaller}
+
+-   Verdaderos Positivos (TP)
+-   Verdaderos Negativos (TN)
+-   Falsos Positivos (FP) (Error Tipo I)
+-   Falsos Negativos (FN) (Error Tipo II)
+-   Sensibilidad//Recall/: TP/(TP+FN)
+-   Razón de Falsos Positivos: FP/(FP+TN)
+-   Accuracy: (TP+TN)/(TP+TN+FP+FN)
+-   Precision: TP/(TP+FP)
+-   Especicifidad: TN/(TN+FP)=1-FPF
+
+## Matriz de confusión para multiclases {.smaller}
+
+La matriz de confusión se puede generaralizar cuando tenemos más de dos clases objetivo
+
+![](images/image-200899671.png)
+
+## Especificidad y sensitividad {.smaller}
+
+-   Hay que añadirlas siempre al cálculo de la precisión, especialmente con problemas desbalanceados
+
+![](images/image-242256751.png)
+
+## Curva ROC de un punto {.smaller}
+
+-   Eje vertical: %Verdaderos Positivos. TPr = VP/(VP+FN)
+-   Eje horizontal: %Falso Positivos. FPr = FP/(FP+VN)
+
+![](images/image-771281488.png)
+
+## Curva ROC de más puntos {.smaller}
+
+-   En este caso necesitamos obtener la probabilidad de la clase objetivo
+-   Se pueden usar distintos umbrales para considerar positiva la clase objetivo obteniendose una curva ROC
+
+![](images/image-2105568187.png)
+
+## Otras medidas de calidad {.smaller}
+
+-   Alternativamente, se puede pintar una curva de tipo "precision-recall"
+-   Mejor que la curva ROC cuando hay desbalanceo entre las clases
+    -   No usa los TN, sólo se fija en los aciertos de la clase minoritaria
+-   También permite calcular medidas cuantitativas
+    -   F1-score: media harmónica
+    -   AUC: igual que la curva ROC
+
+## Otras medidas de calidad 2 {.smaller}
+
+-   Cohen's Kappa: similar al accuracy pero teniendo en cuenta el ratio de acierto de un clasificador aleatorio. Interpretación típica:
+
+    -   0.00-0.20: slight
+    -   0.21-0.40: fair
+    -   0.41-0.60: moderate
+    -   0.61-0.80: substantial
+    -   0.81-1.00: almost perfect
+
+![](images/image-113888173.png)
+
+## Otras medidas de calidad 3
+
+McNemar's test: test de homogeneidad de una matriz de confusión:
+
+-   Comparándolo con un clasicador aleatorio, mide si acierta de forma similar
+-   Hay que rechazar la hipótesis nula (p-valor pequeño) de que existen diferencias entre ambos clasificadores
+
+## Hold-out {.smaller}
+
+-   Consiste en dividir la BD en dos conjuntos independientes: entrenamiento (Xy_train) y test (Xy_test)
+-   El tamaño del Xy_train normalmente es mayor que el del Xy_test (2/3, 1/3, 4/5, 1/5,...)
+-   Los elementos del Xy_train suelen obtenerse mediante muestreo sin reemplazamiento de la BD inicial.
+-   El Xy_test está formado por los elementos no incluidos en el Xy_train
+-   Suele utilizarse en BBDD grandes
+
+![](images/image-752245430.png)
+
+## Three-way data split {.smaller}
+
+Consiste en dividir la BD en tres conjuntos independientes:
+
+-   Entrenamiento: para la construcción de los modelos
+-   Validación: nos permite elegir qué modelo se comporta mejor
+-   Test o Holdout: nos permite obtener la precisión final del modelo elegido
+
+![](images/image-594361734.png)
+
+## Three-way data split para selección del modelo {.smaller}
+
+![](images/image-1283451270.png)
+
+## Validación cruzada (K-fold cross validation) {.smaller}
+
+-   Consiste en dividir la BD en k subconjuntos (folds), {S1,...,Sk} de igual tamaño
+-   Aprender k clasificadores utilizando en cada uno de ellos un conjunto entrenamiento distinto.
+-   Validar con el conjunto de test correspondiente
+-   Devolver como tasa de acierto (error) el promedio obtenido en las k iteraciones
+-   En la validación cruzada estratificada: Los subconjuntos se estratifican en función de la variable clase
+-   Valores típicos de k=5,10...
+-   Suele utilizarse en BBDD de tamaño moderado
+
+## Validación cruzada (K-fold cross validation) 2
+
+Ejemplo con k=4
+
+![](images/image-333655801.png)
+
+## Selección del modelo (K-fold cross validation) {.smaller}
+
+![](images/image-1471438633.png)
+
+## Random subsampling cross validation {.smaller}
+
+-   Consiste en dividir la BD en k subconjuntos entrenamiento/test con muestreo aleatorio sin reemplazamiento
+-   En cada división se extrae el modelo con el conjunto de entrenamiento y se evalúa con el de test
+-   La estimación se promedia
+
+![](images/image-1989690449.png)
+
+## Leaving-one-out {.smaller}
+
+-   Es un caso especial de validación cruzada en el que k es igual al número de registros
+-   Tiene la ventaja de que el proceso es determinista y de que en todo momento se utiliza el máximo posible de datos para la inducción del clasificador
+-   Se utiliza en BBDD muy pequeñas, debido a su alto costo computacional
+
+![](images/image-463688701.png)
+
+## Bootstrap {.smaller}
+
+-   Está basado en el proceso de muestreo con reemplazo
+-   A partir de una BD con n registros se obtiene un CE con n casos
+-   Como conjunto de test se utilizan los registros de la BD no seleccionados para el de entrenamiento
+-   ¿Cuántos casos habrá en el de entrenamiento? ¿qué porcentaje respecto a n?
+    -   Esta técnica se conoce como 0.632 bootstrap (ese % para entrenamiento y resto para test)
+    -   Se calcula partiendo de que la probabilidad de elegir un registro sea 1/n
+-   El error sobre el CT suele ser bastante pesimista por lo que se corrige ![](images/image-1493131626.png)
+
+## Elección del tamañano y número de particiones {.smaller}
+
+-   Alto número de particiones entrenamiento / test:
+    -   Sesgo de la estimación del error pequeño: Estimador bastante preciso
+    -   Alta varianza del estimador
+    -   Costo computacional alto
+-   Bajo número de particiones entrenamiento / test:
+    -   Sesgo alto de la estimación
+    -   Varianza baja
+    -   Costo computacional reducido
+-   La elección del número de particiones depende del tamaño del conjunto de datos
+    -   Para datasets grandes, 3 es un número es adecuado
+    -   Para datasets pequeños, mayor e incluso leaving one out
+    -   Un valor común para k-fold cross validation es K=5 ó 10
+
+## Proceso de aprendizaje en Regresión {.smaller}
+
+-   El proceso es análogo en visto al de clasificación:
+
+![](images/image-1862492279.png)
+
+## Proceso de aprendizaje en Regresión. Validación {.smaller}
+
+-   En este caso tenemos que contrastar dos columnas numéricas
+
+    -   El valor real
+
+    -   El valor predicho
+
+![](images/image-73993490.png)
+
+## Proceso de aplicación del modelo de regresión
+
+-   Es análogo al que se ha visto en clasificación:
+
+![](images/image-48276691.png)
+
+## Medidas de validación en regresión {.smaller}
+
+-   Todas las técnicas de validación estudiadas en clasificación son válidas para predicción numérica
+-   La diferencia está en que ahora debemos medir el error de otra forma
+-   Debemos medir el error cometido al aproximar un conjunto de valores {v1,...,vn} por su estimación {v'1,...,v'n}
+
+![](images/image-110537145.png)
+
+## El problema del sobreaprendizaje {.smaller}
+
+-   Sobreaprendizaje debido a la complejidad del clasificador: a mayor complejidad mayor sobreaprendizaje
+
+![](images/image-403589661.png)
+
+## Ejemplo R de preparación hold-out para entrenamiento de modelos {#sec-hold-out-r .smaller}
+
+```{r}
+#| echo: true
+#| warning: false
+
+# ############################################################
+# Parte general para todos los modelos de clasificación IRIS
+# ############################################################
+
+if(!require('caret')) install.packages('caret', repos = "http://cran.us.r-project.org")
+library(caret)
+
+if(!require('Hmisc')) install.packages('Hmisc', repos = "http://cran.us.r-project.org")
+library(Hmisc)
+
+if(!require('ROCR')) install.packages('ROCR', repos = "http://cran.us.r-project.org")
+library(ROCR)
+
+
+# lectura de datos con el data.frame iris
+data(iris)
+i_data <- iris
+
+# identificar posiciones clase objetivo y variables independientes
+y <- ncol(i_data)
+X <- 1:(y-1)
+head(i_data)
+
+# partir en train y test
+set.seed(123)
+trainIndex <- createDataPartition(i_data[,y], p = .7,list=F, times=1)
+Xy_train <- i_data[trainIndex,]
+Xy_test <- i_data[-trainIndex,]
+
+# construimos fórmula y=f(X) para indicarles a los modelos clase objetivo
+dep <- colnames(Xy_train[y])
+form <- formula(paste0(dep,"~."))
+form
+
+
+```
+
+## Ejemplo Python de preparación hold-out para entrenamiento de modelos {#sec-hold-out-python .smaller}
+
+```{python}
+#| echo: true
+#| warning: false
+
+# ############################################################
+# Parte general para todos los modelos de clasificación IRIS
+# ############################################################
+
+# librerías generales
+import pandas as pd
+import numpy as np
+import scikitplot as skplt # pip install scikitplot
+import matplotlib.pyplot as plt
+from sklearn import datasets
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import classification_report
+from sklearn.metrics import confusion_matrix
+from sklearn.preprocessing import StandardScaler
+
+# lectura de datos y convertir dataframe
+iris = datasets.load_iris()
+i_data = pd.DataFrame(iris.data, columns=iris.feature_names)
+i_data['class'] = iris.target
+i_data.head()
+
+# identificar clase objetivo y variables independientes
+X = i_data.loc[:, i_data.columns != 'class']
+y = i_data['class']
+
+# partir en train y test
+np.random.seed(123)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
+
+# modelo de preprocesamiento obtenido desde el conjunto de entrenamiento
+md_prepro = StandardScaler()
+md_prepro.fit(X_train)
+
+# escalamos conjunto entrenamiento
+X_train_scaled = md_prepro.transform(X_train)
+
+# visualizamos estadísticas
+df_describe = pd.DataFrame(X_train_scaled)
+df_describe.describe()
+
+# escalamos conjunto de test (con el modelo de preprocesamiento del conjunto de entrenamiento)
+X_test_scaled = md_prepro.transform(X_test)
+
+# visualizamos estadísticas
+df_describe = pd.DataFrame(X_test_scaled)
+df_describe.describe()
+
+
+```
+
+# Árboles de decisión
+
+## Introducción árboles {.smaller}
+
+![](images/image-221753580.png)
+
+## Introducción árboles 2 {.smaller}
+
+![](images/image-2070491360.png)
+
+## Introducción árboles 3 {.smaller}
+
+![](images/image-1859924272.png)
+
+## Algoritmos de árboles
+
+Existen múltiples algoritmos:
+
+-   Algoritmo de Hunt (uno de los primeros)
+-   CART
+-   ID3, C4.5
+-   SLIQ, SPRINT...
+
+## Algoritmo de Hunt {.smaller}
+
+Muchos algoritmos se basan en un enfoque "top-down" o "divide y vencerás": por ejemplo, el algoritmo de Hunt:
+
+-   Sea Dt el conjunto de registros de entrenamiento en nodo t dado
+-   Sea yt = y1, y2, ..., yc el conjunto de etiquetas de clase
+-   Si todos los registros Dt pertenecen a la misma clase
+    -   Entonces es t es un nodo hoja que se etiqueta como yt
+-   Si Dt contiene registros que pertenecen a más de una clase
+    -   se escoge una variable (atributo) para dividir los datos en subconjuntos más pequeños
+-   Recursivamente se aplica el procedimiento a cada subconjunto
+
+## Algoritmo de Hunt 2
+
+![](images/image-96546080.png)
+
+## Algoritmo de Hunt 3 {.smaller}
+
+Para poder aplicar este algoritmo, tenemos que responder algunas preguntas...
+
+-   ¿Cómo vamos a dividir los registros?
+    -   ¿Cómo especicificar la condición de división?
+    -   ¿Qué variables a usar y en qué orden?¿qúe criterio puede determinar la mejor división?
+-   Criterio de parada
+-   Preprunning: Se detiene antes de construir el árbol complejo (p.e. se para cuando todos los registros son de la misma clase, o tiene pocos registros, o no provoca mejora en la impureza...)
+-   Posprunning: se construye el árbol completo y se poda con alguna medida de error basándose en los datos de validación
+
+## Condición de división
+
+-   Nominales vs. ordinales vs. cuantitativas
+-   División binaria vs. múltiple
+
+![](images/image-696018820.png)
+
+## Condición de división 2
+
+-   Preferiremos aquellas divisiones con una distribución menos homogénea de los registros en función de su clase
+-   Necesitamos una medida de impureza para las divisiones
+
+![](images/image-578257949.png)
+
+## Condición de división 3
+
+![](images/image-1010050414.png)
+
+## Medidas de impureza
+
+Existen diversas formas de medirla. Ejemplos:
+
+![](images/image-196765227.png)
+
+## Medidas de impureza 2
+
+![](images/image-445456217.png)
+
+## Comparativa de algoritmos {.smaller}
+
+-   ID3 es uno de los primeros algoritmos de inducción de árboles
+-   C4.5 lo mejora en:
+    -   Acepta atributos discretos y continuos
+    -   Soporta valores nulos
+    -   Implementa estrategia de prunning bottom-up
+    -   Permite asignar pesos a los distintos atributos
+-   CART es similar a C4.5. Se diferencian en:
+    -   La estrategia de prunning es ligeramente distinta
+    -   También la de imputación de valores nulos
+    -   Usa el índice de GINI mientras C4.5 usa la Ganancia o el Ratio de Ganancia
+
+## Árboles de regresión
+
+-   Los árboles de decisión también pueden ser usados para hacer regresión
+-   La idea es que cada nodo hoja prediga un valor numérico en lugar de un valor categórico
+
+![](images/image-1909597357.png)
+
+## Árboles de regresión 2 {.smaller}
+
+-   A diferencia de los árboles de clasicación se usa la desviación típica como métrica para medir la homegeneidad de u nodo
+-   La media es el valor que predice el árbol
+-   La desviación típica se usa para decidir cómo se hacen las divisiones
+-   El coeficiente de variación y número de instancias se usan como criterio de parada
+
+![](images/image-1930864979.png)
+
+## Árboles de regresión 3 {.smaller}
+
+En cada nodo, para hacer la división lo que se hace es:
+
+1.  Calcular la desviación típica en ese nodo
+2.  Seleccionar varios atributos para hacer la división
+3.  Calcular la desviación típica media para cada uno de los atributos
+4.  Calcular el decremento de la desviación para cada uno de ellos
+5.  Seleccionamos el atributo que mayor decremento introduce
+
+## Ejemplo R de árboles de clasificación {.smaller}
+
+-   Previamente a este ejemplo se ha debido de realizar el proceso de hold-out @sec-hold-out-r
+
+```{r}
+#| echo: true
+#| warning: false
+
+#############################################
+## Árbol de clasificación
+#############################################
+
+# librerías para árboles
+if(!require('partykit')) install.packages('partykit', repos = "http://cran.us.r-project.org")
+library(partykit)
+
+if(!require('party')) install.packages('party', repos = "http://cran.us.r-project.org")
+library(party)
+
+
+# construcción del modelo y entrenamiento
+fitControl <- trainControl(method="none",classProbs=T,number = 1)
+md_tree <- train(form, 
+            data=Xy_train, 
+            method="ctree", 
+            trControl=fitControl)
+
+# predicción del conjunto de test
+y_pred <- predict(md_tree, newdata=Xy_test[,-y])
+
+# dataframe con datos entrada y prediccion
+o_pred = data.frame(Xy_test,pred=y_pred)
+head(o_pred)
+
+# matriz de confusión y métricas de precisión
+mc <- caret::confusionMatrix (y_pred, Xy_test[,y])
+mc
+
+# obtención probabilidad de cada clase de la variable objetivo
+y_test_proba_predict <- predict(md_tree, newdata=Xy_test[,-y], type = "prob")
+head(y_test_proba_predict)
+
+# Se añade la data.frame la probabilidad de cada clase
+o_pred <- data.frame(o_pred,y_test_proba_predict )
+str(o_pred)
+
+# curvas roc
+roc_setosa = data.frame(o_pred$setosa, Xy_test[,y] == "setosa")
+colnames(roc_setosa) = c("predict", "label");
+pred_setosa = prediction(roc_setosa$predict, roc_setosa$label);
+perf_setosa = performance(pred_setosa, "tpr", "fpr");
+
+roc_virginica = data.frame(o_pred$virginica, Xy_test[,y] == "virginica")
+colnames(roc_virginica) = c("predict", "label");
+pred_virginica = prediction(roc_virginica$predict, roc_virginica$label);
+perf_virginica = performance(pred_virginica, "tpr", "fpr");
+
+roc_versicolor = data.frame(o_pred$versicolor, Xy_test[,y] == "versicolor")
+colnames(roc_versicolor) = c("predict", "label");
+pred_versicolor = prediction(roc_versicolor$predict, roc_versicolor$label);
+perf_versicolor = performance(pred_versicolor, "tpr", "fpr");
+
+plot(perf_setosa)
+plot(perf_virginica)
+plot(perf_versicolor)
+
+# visualización del árbol
+md_tree$finalModel
+plot(md_tree$finalModel)
+
+```
+
+## Ejemplo Python árboles de clasificación {.smaller}
+
+-   Previamente a este ejemplo se ha debido de realizar el proceso de hold-out @sec-hold-out-python
+
+```{python}
+#| echo: true
+
+#############################################
+## Árbol de clasificación
+#############################################
+
+# librerías necesarias
+from sklearn.tree import DecisionTreeClassifier, export_text
+from sklearn import tree
+
+# construcción del modelo y entrenamiento
+np.random.seed(123)
+md_tree = DecisionTreeClassifier()
+md_tree.fit(X_train, y_train)
+
+# predicción del conjunto de test
+y_pred = md_tree.predict(X_test)
+
+# dataframe con datos entrada y prediccion
+o_pred = pd.concat([X_test,y_test],axis=1)
+o_pred['class_pred']=y_pred
+o_pred.head()
+
+# matriz de confusión y métricas de precisión
+print(confusion_matrix(y_test, y_pred))
+print(classification_report(y_test, y_pred))
+
+```
+
+## Ejemplo Python árboles de clasificación 2 {.smaller}
+
+```{python}
+#| echo: true
+
+# obtención probabilidad de cada clase de la variable objetivo
+y_test_proba_predict = md_tree.predict_proba(X_test)
+y_test_proba_predict[:5,]
+
+# curva roc
+import scikitplot as skplt # %pip install scikit-plot
+
+skplt.metrics.plot_roc(y_true=y_test, y_probas=y_test_proba_predict)
+plt.show()
+
+# reglas del arbol
+nombres = list(X.columns)
+tree_rules = export_text(md_tree, feature_names=nombres)
+print(tree_rules)
+
+# visualización del árbol
+tree.plot_tree(md_tree, feature_names=nombres, filled=True)
+
+```
+
+# K Nearest Neighbors (KNN)
+
+## Descripción del algoritmo KNN
+
+-   Es un algoritmo perezoso ("lazy") porque delega todo el cálculo a la fase de clasicación (no hay propiamente una fase de construcción del modelo)
+-   Cuando se recibe una nueva instancia para clasificar se calcula la distancia a todas las instancias del conjunto de entrenamiento y nos quedamos con las k más cercanas
+-   Se asigna la nueva clase a la instancia por votación
+-   Se puede usar una ponderación en función de la inversa de la distancia
+
+## Funcionamiento de KNN {.smaller}
+
+![](images/image-1500538511.png)
+
+## Problemas de KNN {.smaller}
+
+-   Puede ser muy pesado de calcular si el número de instancias del que aprendemos es muy grande
+-   Si las características tienen valores de órdenes de magnitud muy distintos, esto puede afectar a la capacidad de predicción del algoritmo (es necesario preprocesamiento: normalización...)
+-   Si el dataset está muy desbalanceado, puede ser difícil predecir la clase minoritaria por votación
+    -   Puede mejorarlo la asignación de pesos inversamente proporcionales a la distancia
+
+## Ejemplo R de KNN {.smaller}
+
+-   Previamente a este ejemplo se ha debido de realizar el proceso de hold-out @sec-hold-out-r
+
+```{r}
+#| echo: true
+#| warning: false
+
+#############################################
+## Knn
+#############################################
+
+# construcción del modelo y entrenamiento
+fitControl <- trainControl(method="none",classProbs=T,number = 1)
+md_knn <- train(form, 
+                 data=Xy_train, 
+                 method="knn", 
+                 preProcess="center",                
+                 trControl=fitControl)
+
+# predicción del conjunto de test
+y_pred <- predict(md_knn, newdata=Xy_test[,-y])
+
+# dataframe con datos entrada y prediccion
+o_pred = data.frame(Xy_test,pred=y_pred)
+head(o_pred)
+
+# matriz de confusión y métricas de precisión
+mc <- caret::confusionMatrix (y_pred, Xy_test[,y])
+mc
+
+# obtención probabilidad de cada clase de la variable objetivo
+y_test_proba_predict <- predict(md_knn, newdata=Xy_test[,-y], type = "prob")
+head(y_test_proba_predict)
+
+# Se añade la data.frame la probabilidad de cada clase
+o_pred <- data.frame(o_pred,y_test_proba_predict )
+str(o_pred)
+
+# curvas roc
+roc_setosa = data.frame(o_pred$setosa, Xy_test[,y] == "setosa")
+colnames(roc_setosa) = c("predict", "label");
+pred_setosa = prediction(roc_setosa$predict, roc_setosa$label);
+perf_setosa = performance(pred_setosa, "tpr", "fpr");
+
+roc_virginica = data.frame(o_pred$virginica, Xy_test[,y] == "virginica")
+colnames(roc_virginica) = c("predict", "label");
+pred_virginica = prediction(roc_virginica$predict, roc_virginica$label);
+perf_virginica = performance(pred_virginica, "tpr", "fpr");
+
+roc_versicolor = data.frame(o_pred$versicolor, Xy_test[,y] == "versicolor")
+colnames(roc_versicolor) = c("predict", "label");
+pred_versicolor = prediction(roc_versicolor$predict, roc_versicolor$label);
+perf_versicolor = performance(pred_versicolor, "tpr", "fpr");
+
+plot(perf_setosa)
+plot(perf_virginica)
+plot(perf_versicolor)
+```
+
+## Ejemplo Python KNN {.smaller}
+
+-   Previamente a este ejemplo se ha debido de realizar el proceso de hold-out @sec-hold-out-python
+
+```{python}
+#| echo: true
+
+#############################################
+## Knn
+#############################################
+
+# construcción del modelo
+from sklearn.neighbors import KNeighborsClassifier
+
+np.random.seed(123)
+md_knn = KNeighborsClassifier()
+md_knn.fit(X_train_scaled, y_train)
+
+# predicción del conjunto de test
+y_pred = md_knn.predict(X_test_scaled)
+
+# matriz de confusión y métricas de precisión
+print(confusion_matrix(y_test, y_pred))
+print(classification_report(y_test, y_pred))
+
+# obtención probabilidad de cada clase de la variable objetivo
+y_test_proba_predict = md_knn.predict_proba(X_test_scaled)
+
+```
+
+## Ejemplo Python KNN 2 {.smaller}
+
+```{python}
+#| echo: true
+
+# curva roc
+import scikitplot as skplt # %pip install scikit-plot
+
+skplt.metrics.plot_roc(y_true=y_test, y_probas=y_test_proba_predict)
+plt.show()
+
+```
+
+# Naive Bayes
+
+## Definición del problema {.smaller}
+
+-   En términos bayesianos el problema consiste:
+    -   Dadas unas características x1, x2, ..., xn
+    -   Predecir la etique y
+-   Una buena alternativa podría ser usar el teorema de Bayes
+
+![](images/image-447480413.png)
+
+![](images/image-431091592.png)
+
+## Asunciones {.smaller}
+
+-   Sólo tenemos que calcular esta probabilidad y asignar la clase cuya probabilidad sea mayor
+-   ¿Problema? Calcular todas estas probabilidades es muy costoso (especialmente cuando el número de características aumenta)
+-   Si asumimos que todas las variables son independientes entre sí se simplifican enórmemente los cálculos
+
+![](images/image-1694463182.png)
+
+## Ejemplo R de Naive Bayes {.smaller}
+
+-   Previamente a este ejemplo se ha debido de realizar el proceso de hold-out @sec-hold-out-r
+
+```{r}
+#| echo: true
+#| warning: false
+
+#############################################
+## NB
+#############################################
+
+if(!require('klaR')) install.packages('klaR', repos = "http://cran.us.r-project.org")
+library(klaR)
+
+# construcción del modelo y entrenamiento
+fitControl <- trainControl(method="none",classProbs=T,number = 1)
+md_nb <- train(form, 
+                 data=Xy_train, 
+                 method="nb") 
+
+
+# predicción del conjunto de test
+y_pred <- predict(md_nb, newdata=Xy_test[,-y])
+
+# dataframe con datos entrada y prediccion
+o_pred = data.frame(Xy_test,pred=y_pred)
+head(o_pred)
+
+# matriz de confusión y métricas de precisión
+mc <- caret::confusionMatrix (y_pred, Xy_test[,y])
+mc
+
+# obtención probabilidad de cada clase de la variable objetivo
+y_test_proba_predict <- predict(md_nb, newdata=Xy_test[,-y], type = "prob")
+head(y_test_proba_predict)
+
+# Se añade la data.frame la probabilidad de cada clase
+o_pred <- data.frame(o_pred,y_test_proba_predict )
+str(o_pred)
+
+# curvas roc
+roc_setosa = data.frame(o_pred$setosa, Xy_test[,y] == "setosa")
+colnames(roc_setosa) = c("predict", "label");
+pred_setosa = prediction(roc_setosa$predict, roc_setosa$label);
+perf_setosa = performance(pred_setosa, "tpr", "fpr");
+
+roc_virginica = data.frame(o_pred$virginica, Xy_test[,y] == "virginica")
+colnames(roc_virginica) = c("predict", "label");
+pred_virginica = prediction(roc_virginica$predict, roc_virginica$label);
+perf_virginica = performance(pred_virginica, "tpr", "fpr");
+
+roc_versicolor = data.frame(o_pred$versicolor, Xy_test[,y] == "versicolor")
+colnames(roc_versicolor) = c("predict", "label");
+pred_versicolor = prediction(roc_versicolor$predict, roc_versicolor$label);
+perf_versicolor = performance(pred_versicolor, "tpr", "fpr");
+
+plot(perf_setosa)
+plot(perf_virginica)
+plot(perf_versicolor)
+
+```
+
+## Ejemplo Python Naive Bayes {.smaller}
+
+-   Previamente a este ejemplo se ha debido de realizar el proceso de hold-out @sec-hold-out-python
+
+```{python}
+#| echo: true
+
+#############################################
+## NB
+#############################################
+
+# construcción del modelo
+from sklearn.naive_bayes import GaussianNB
+
+np.random.seed(123)
+md_nb = GaussianNB()
+md_nb.fit(X_train, y_train)
+
+# predicción del conjunto de test
+y_pred = md_nb.predict(X_test)
+
+# matriz de confusión y métricas de precisión
+print(confusion_matrix(y_test, y_pred))
+print(classification_report(y_test, y_pred))
+
+# obtención probabilidad de cada clase de la variable objetivo
+y_test_proba_predict = md_tree.predict_proba(X_test)
+
+```
+
+## Ejemplo Python Naive Bayes 2 {.smaller}
+
+```{python}
+#| echo: true
+
+# curva roc
+import scikitplot as skplt # %pip install scikit-plot
+
+skplt.metrics.plot_roc(y_true=y_test, y_probas=y_test_proba_predict)
+plt.show()
+
+```
+
+# Support Vector Machines (SVM)
+
+## Descripción del método {.smaller}
+
+-   El problema de clasificación consiste en encontrar un hiperplano que separe las instancias de distintas clases
+-   ¿Qué hiperplano seleccionamos?
+-   El algoritmo SVM intenta encontrar la separación óptima
+    -   Aquélla que maximiza la distancia entre el hiperplano y los puntos "complicados" llamados support vectors. Es un problema cuadrático
+
+![](images/image-1899789080.png)
+
+## SVM representación gráfica
+
+![](images/image-1434379904.png)
+
+## El truco del kernel {.smaller}
+
+-   Los SVMs funcionan muy bien si la separación entre clases es lineal
+
+![](images/image-259188054.png)
+
+-   ¿Qué ocurre si esta separación es más compleja?
+
+![](images/image-337776540.png)
+
+-   Podemos intentar transformar el espacio en otro de mayor dimensionalidad donde las clases sí sean separables linealmente
+
+![](images/image-1668756719.png)
+
+## El truco del kernel 2 {.smaller}
+
+-   Idea general: Siempre podemos encontrar una transformación del espacio original a un espacio de más dimensiones donde los datos de aprendizaje son separables
+
+![](images/image-1920754441.png)
+
+## Kernels típicos
+
+-   Existen distintos tipos de kernels, adecuados para distintos tipos de problemas:
+
+![](images/image-1410071433.png)
+
+## Importancia de los parámetros: gamma {.smaller}
+
+![](images/image-161779551.png)
+
+## Importancia de los parámetros: coste {.smaller}
+
+![](images/image-205258487.png)
+
+## Ejemplo R de SVM {.smaller}
+
+-   Previamente a este ejemplo se ha debido de realizar el proceso de hold-out @sec-hold-out-r
+
+```{r}
+#| echo: true
+#| warning: false
+
+#############################################
+## svm
+#############################################
+
+# librerías del modelo
+if(!require('e1071')) install.packages('e1071', repos = "http://cran.us.r-project.org")
+library(e1071)
+
+# construcción del modelo y entrenamiento
+fitControl <- trainControl(method="none",classProbs=T,number = 1)
+md_svm <- train(form, 
+                data=Xy_train, 
+                method="svmRadial", 
+                preProcess="center",
+                trControl=fitControl)
+
+# predicción del conjunto de test
+y_pred <- predict(md_svm, newdata=Xy_test[,-y])
+
+# dataframe con datos entrada y prediccion
+o_pred = data.frame(Xy_test,pred=y_pred)
+head(o_pred)
+
+# matriz de confusión y métricas de precisión
+mc <- caret::confusionMatrix (y_pred, Xy_test[,y])
+mc
+
+# obtención probabilidad de cada clase de la variable objetivo
+y_test_proba_predict <- predict(md_svm, newdata=Xy_test[,-y], type = "prob")
+head(y_test_proba_predict)
+
+# Se añade la data.frame la probabilidad de cada clase
+o_pred <- data.frame(o_pred,y_test_proba_predict )
+str(o_pred)
+
+# curvas roc
+roc_setosa = data.frame(o_pred$setosa, Xy_test[,y] == "setosa")
+colnames(roc_setosa) = c("predict", "label");
+pred_setosa = prediction(roc_setosa$predict, roc_setosa$label);
+perf_setosa = performance(pred_setosa, "tpr", "fpr");
+
+roc_virginica = data.frame(o_pred$virginica, Xy_test[,y] == "virginica")
+colnames(roc_virginica) = c("predict", "label");
+pred_virginica = prediction(roc_virginica$predict, roc_virginica$label);
+perf_virginica = performance(pred_virginica, "tpr", "fpr");
+
+roc_versicolor = data.frame(o_pred$versicolor, Xy_test[,y] == "versicolor")
+colnames(roc_versicolor) = c("predict", "label");
+pred_versicolor = prediction(roc_versicolor$predict, roc_versicolor$label);
+perf_versicolor = performance(pred_versicolor, "tpr", "fpr");
+
+plot(perf_setosa)
+plot(perf_virginica)
+plot(perf_versicolor)
+
+
+```
+
+## Ejemplo Python SVM {.smaller}
+
+-   Previamente a este ejemplo se ha debido de realizar el proceso de hold-out @sec-hold-out-python
+
+```{python}
+#| echo: true
+
+#############################################
+## SVM
+#############################################
+
+# construcción del modelo
+from sklearn.svm import SVC
+
+np.random.seed(123)
+md_svm = SVC(probability=True)
+md_svm.fit(X_train_scaled, y_train)
+
+# predicción del conjunto de test
+y_pred = md_svm.predict(X_test_scaled)
+
+# matriz de confusión y métricas de precisión
+print(confusion_matrix(y_test, y_pred))
+print(classification_report(y_test, y_pred))
+
+# obtención probabilidad de cada clase de la variable objetivo
+y_test_proba_predict = md_svm.predict_proba(X_test_scaled)
+
+```
+
+## Ejemplo Python SVM 2 {.smaller}
+
+```{python}
+#| echo: true
+
+# curva roc
+import scikitplot as skplt # %pip install scikit-plot
+
+skplt.metrics.plot_roc(y_true=y_test, y_probas=y_test_proba_predict)
+plt.show()
+
+```
+
+# Redes neuronales artificiales (artificial neural networks, ANN)
+
+## Introducción {.smaller}
+
+-   Son un tipo de algoritmos perteneciente al campo del ML que intenta simular el comportamiento de las redes de neuronas biológicas
+-   Se remontan a los años 40, aunque su desarrollo estuvo parado durante casi dos décadas
+-   Muy populares durante los 80 y 90 aunque su uso cayó en la última década
+-   De nuevo son actualidad debido a su uso en el Deep Learning
+
+## Investigadores relevantes {.smaller}
+
+![](images/image-padres-dl.png)
+
+<https://www.datarobot.com/blog/a-primer-on-deep-learning/>
+
+## Un poco de más historia {.smaller}
+
+-   1943: McCulloch-Pitts definen la "neurona artificial".
+    -   Comienzo del campo
+-   1962: Rosenblatt introduce el perceptrón
+    -   Aprende los pesos de las conexiones, prueba la convergencia
+-   1969: Minsky y Papert publican un libro sobre el perceptrón
+    -   Prueban las limitaciones de los perceptrones de una capa
+-   1986: Backpropagation del error
+    -   Vuelta a la actualidad de las ANNs. Método para entrenar redes multicapa
+-   Actualidad: Gran número de neuronas y capas con gran capacidad de aprendizaje, son la base entre otras aplicaciones de los Grandes Modelos de Lenguaje (ChatGPT...)
+    -   Deep Learning
+
+## Características de las redes neuronales biológicas {.smaller}
+
+-   Conectividad masiva (10\^14 conexiones)
+-   No-lineales, paralelas, robustas y tolerantes a fallos
+-   Capaces de adaptarse al entorno
+-   Capaces de aprender y generalizar a partir de ejemplos conocidos
+-   Comportamiento colectivo emergente distinto del comportamiento individual
+
+Las Redes de ANNs tratan de imitar algunas de estas características...
+
+## Características de las ANNs {.smaller}
+
+-   Formadas por unidades de cómputo sencillas
+-   La información se almacena en las conexiones =\> No hay memoria como tal
+-   Masivamente paralelas
+-   Masivamente interconectadas
+-   Tolerantes a fallos
+-   Capaces de aprender y generalizar a partir de ejemplos
+-   Robustas
+-   Comportamiento colectivo diferente del comportamiento individual
+
+Dependiendo del modelo de ANN que usemos, algunas características pueden no estar disponibles
+
+## Perceptrón de una capa {.smaller}
+
+-   La más sencilla de las ANN
+-   Una capa de neuronas que reciben los atributos de entrada
+    -   Cada neurona tiene un peso asociado
+-   Son agregados por medio de una función de activación
+
+![](images/image-rna-01.png)
+
+## Función de activación threshold o escalón {.smaller}
+
+Asigna el valor 1 a lo que quede a un lado de la frontera de separación y -1 a lo que quede al otro lado
+
+```{r}
+#| echo: false
+#| warning: false
+if(!require('remotes')) install.packages('remotes')
+library("remotes")
+
+if(!require('ggplot2')) install.packages('ggplot2')
+require(ggplot2)
+
+# escalon
+df <- data.frame(x = c(-4, -3, -2, -1, 0, 1, 2, 3, 4), f = c(0, 0, 0, 0, 1, 1,1, 1, 1))
+ggplot(data = df, aes(x = x, y = f, group = 1)) +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  ggtitle("Umbral") +
+  scale_y_continuous(name = "f(x)") +
+  geom_hline(yintercept = 0, color = "black", alpha = 3 / 4) +
+  geom_vline(xintercept = 0, color = "black", alpha = 3 / 4) +
+  geom_step(color = "red")
+
+```
+
+## Función de activación lineal {.smaller}
+
+```{r}
+#| echo: false
+#| warning: false
+
+# funciones de activacion lineal
+plot_activation_function <- function(f, title, range) {
+  ggplot(data.frame(x = range), mapping = aes(x = x)) +
+    geom_hline(yintercept = 0, color = "black", alpha = 3 / 4) +
+    geom_vline(xintercept = 0, color = "black", alpha = 3 / 4) +
+    stat_function(fun = f, colour = "red") +
+    ggtitle(title) +
+    scale_x_continuous(name = "x") +
+    scale_y_continuous(name = "f(x)") +
+    theme(plot.title = element_text(hjust = 0.5))
+}
+f <- function(x) {
+  x
+}
+plot_activation_function(f, "Lineal", c(-4, 4))
+
+```
+
+## Función de activación Sigmoide {.smaller}
+
+```{r}
+#| echo: false
+#| warning: false
+
+# sigmoide
+f <- function(x) {
+  1 / (1 + exp(-x))
+}
+plot_activation_function(f, "Sigmoide", c(-4, 4))
+
+```
+
+## Función de activación Tangente Hiperbólica {.smaller}
+
+```{r}
+#| echo: false
+#| warning: false
+
+# tangente hiperbólica
+tanh_func <- function(x) {
+  tanh(x)
+}
+plot_activation_function(tanh_func, "Tangente Hiperbólica", c(-4, 4))
+
+```
+
+## Función de activación Relu {.smaller}
+
+```{r}
+#| echo: false
+#| warning: false
+
+# relu
+rec_lu_func <- function(x) {
+  ifelse(x < 0, 0, x)
+}
+plot_activation_function(rec_lu_func, "ReLU", c(-4, 4))
+
+```
+
+## Perceptrón de una capa. Bias {.smaller}
+
+![](images/image-rna-02.png)
+
+## Justificación del bias {.smaller}
+
+-   Para convertir entre Celsius y Fahrenheit, tenemos un problema, porque a 0ºC le corresponden 32ºF, y sólo con una multiplicación no podemos hacer esto. Sin embargo, al introducir el término Bias, tenemos una multiplicación y luego una suma, con lo cual ya podríamos hacer el conversor de c (variable x) a f (variable y)
+
+$$ f = c \times 1.8 + 32 $$ $$ y = x \times 1.8 + 1 \times 32 $$
+
+![](images/image-celsius.png)
+
+## Probando el perceptrón con Tensorflow en Python para regresión {.smaller}
+
+<iframe src="nb/IA_M01_00_ANN.html" width="100%" height="499">
+
+</iframe>
+
+## Perceptrón de una capa. Simplificando notación {.smaller}
+
+![](images/image-rna-03.png)
+
+## Perceptrón de una capa con solo dos variables de entrada {.smaller}
+
+![](images/image-rna-04.png)
+
+-   Este perceptrón (que usala función sigmoidal) puede clasificar basándose en una **recta**
+-   Si usamos tensorflow (tf):
+
+```{python}
+#| echo: true
+#| eval: false
+capa = tf.keras.layers.Dense(units=1, input_dim=2,  activation='sigmoid')
+model = tf.keras.Sequential([capa])
+
+```
+
+## Pongamos a prueba el perceptrón para una estrategia relacional {.smaller}
+
+![](images/image-estrategia-rel.png)
+
+-   Nuestro banco quiere hacer una campaña de préstamos personales
+-   Vamos a seleccionar el público objetivo mediante un perceptrón
+-   Nos basaremos en los resultados de campañas históricas sobre el mismo producto
+
+## Obtención de los datos de entrenamiento para el perceptrón {.smaller}
+
+![](images/image-crm.png)
+
+-   Obtenemos la tabla de entrenamiento (XY) a partir de aquellos clientes que se les ofreció anteriormente el préstamo:
+    -   y: es la respuesta del cliente (1:contrató, 0:no)
+    -   x1,...,xn: son las variables que reflejan la situación del cliente en el momento de esa respuesta (edad, saldos, gastos...)
+
+## Primer caso: OR {.smaller}
+
+-   Supongamos que hemos obtenido la siguiente tabla para los 4 clientes del banco:
+
+| id  | x1  | x2  | y   |
+|-----|-----|-----|-----|
+| 0   | 0   | 0   | 0   |
+| 1   | 0   | 1   | 1   |
+| 2   | 1   | 0   | 1   |
+| 3   | 1   | 1   | 1   |
+
+-   donde:
+
+    -   **x1**: tarjeta de crédito (0:no, 1:sí)
+    -   **x2**: otros préstamos personales (0:no, 1:sí)
+    -   **y**: contrató crédito personal cuando se lo ofreció (0:no, 1:sí)
+
+## Resolución del primer caso con tensorflow {.smaller}
+
+<iframe src="nb/IA_M01_01_ANN.html" width="100%" height="499">
+
+</iframe>
+
+## Segundo caso: AND {.smaller}
+
+-   Supongamos que hemos obtenido la siguiente tabla para los 4 clientes del banco:
+
+| id  | x1  | x2  | y   |
+|-----|-----|-----|-----|
+| 0   | 0   | 0   | 0   |
+| 1   | 0   | 1   | 0   |
+| 2   | 1   | 0   | 0   |
+| 3   | 1   | 1   | 1   |
+
+-   donde:
+
+    -   **x1**: joven (0:no, 1:sí)
+    -   **x2**: nómina (0:no, 1:sí)
+    -   **y**: contrató crédito personal cuando se lo ofreció (0:no, 1:sí)
+
+## Resolución del segundo caso con tensorflow {.smaller}
+
+<iframe src="nb/IA_M01_02_ANN.html" width="100%" height="499">
+
+</iframe>
+
+## Tercer caso: XOR {.smaller}
+
+-   Supongamos que hemos obtenido la siguiente tabla para los 4 clientes del banco:
+
+| id  | x1  | x2  | y   |
+|-----|-----|-----|-----|
+| 0   | 0   | 0   | 0   |
+| 1   | 0   | 1   | 1   |
+| 2   | 1   | 0   | 1   |
+| 3   | 1   | 1   | 0   |
+
+-   donde:
+
+    -   **x1**: tarjeta crédito (0:no, 1:sí)
+    -   **x2**: póliza crédito (0:no, 1:sí)
+    -   **y**: contrató crédito personal cuando se lo ofreció (0:no, 1:sí)
+
+## Resolución del tercer caso con tensorflow 1 neurona {.smaller}
+
+<iframe src="nb/IA_M01_03_ANN.html" width="100%" height="499">
+
+</iframe>
+
+## Perceptrón de una capa: clasificación {.smaller}
+
+-   Si los datos de aprendizaje son linealmente separables entonces, usando un algoritmo de aprendizaje correcto, se puede conseguir un ratio de clasificación perfecto
+
+![](images/image-531864042.png)
+
+## Cómo se optimiza el vector de pesos {.smaller}
+
+-   Podemos usar un método clásico como es el Descenso del Gradiente (GD, por sus siglas en inglés)
+-   Este algoritmo requiere de una función de coste E(\|w\|) que permita al algoritmo estimar la mejora esperada al actualizar el vector de pesos
+-   El algoritmo funciona de manera iterativa, actualizando cada vez el vector w en función de los resultados del paso anterior
+
+## Función de coste en el perceptrón
+
+-   El objetivo del perceptrón cuando lo usamos para clasificación es minimizar el número de instancias mal clasificadas
+-   Nuestra función de coste tomará en cuenta la suma de las distancias de aquellas instancias mal clasicadas
+
+## Introducción a la no separabilidad lineal {.smaller}
+
+¿Qué ocurre en casos como el de la imagen?
+
+-   Necesitaríamos trazar una frontera más complejas
+-   Dos rectas podrían ser la solución para este problema del XOR
+
+![](images/image-1062467727.png)
+
+## El problema del XOR {.smaller}
+
+-   La lógica digital se base en tres funciones: AND, OR y NOT
+-   El XOR se puede formular como: XOR(X1, X2) = (X1 AND (NOT X2)) OR ((NOT X1) AND X2)
+-   Ya hemos solucionado el AND y el OR con una neurona
+-   Idea ¿y si añadimos más neuronales al perceptrón?
+
+![](images/image-xor-log.png)
+
+## Solución al problema del XOR {.smaller}
+
+-   Necesitamos una versión más sofisticada del perceptrón:
+-   Podemos añadir una nueva capa **oculta** con dos neuronas para ver si aprenden a *descomponer* el XOR en sus distintas puertas lógicas
+
+![](images/image-xor.png) <https://www.danli.org/2021/06/21/hands-on-machine-learning-keras/>
+
+## Solución al problema de clases no linealmente separables {.smaller}
+
+-   Necesitamos una versión más sofisticada del perceptrón:
+    -   Perceptrón Multicapa (MLP) + error backprogation
+    -   También puede ayudar otras funciones de activación
+
+## Resolución del tercer caso con tensorflow añadiendo una capa oculta {.smaller}
+
+<iframe src="nb/IA_M01_04_ANN.html" width="100%" height="499">
+
+</iframe>
+
+## Problema del XOR solucionado {.smaller}
+
+-   Con esta arquitectura y función de activación parece solucionado el problema del XOR
+
+![](images/image-xor-ann.png)
+
+## Generalizando el problema del XOR {.smaller}
+
+-   Podemos generalizar el problema del XOR con valores continuos (no solo con valores 0 y 1 para las variables de entrada)
+-   En nuestro caso 3, tendríamos ahora:
+-   x1: consumo en € tarjetas de crédito del cliente
+-   x2: consumo en € pólizas de crédito del cliente
+
+![](images/image-xor-gen.png)
+
+## Juguemos a resolver el problema del XOR {.smaller}
+
+[Playground XOR](https://playground.tensorflow.org/#activation=sigmoid&batchSize=10&dataset=xor&regDataset=reg-plane&learningRate=0.03&regularizationRate=0&noise=0&networkShape=2&seed=0.79208&showTestData=false&discretize=true&percTrainData=50&x=true&y=true&xTimesY=false&xSquared=false&ySquared=false&cosX=false&sinX=false&cosY=false&sinY=false&collectStats=false&problem=classification&initZero=false&hideText=false)
+
+![](images/image-xor-play.png)
+
+-   Probemos otras funciones de activación y topologías
+
+## Perceptrón Multicapa (MLP) {.smaller}
+
+-   Amplía el original añadiendo capas intermedias de neuronas
+    -   Una o más capas
+-   Dependiendo del número de capas (y de la función de activación) podemos conseguir fronteras de decisión de mayor o menor complejidad
+-   Si hay muchas capas hablamos de aprendizaje profundo (deep learning)
+-   En el MLP para clasificación siempre las capas de entrada y salida están definidas por el conjunto de datos XY:
+    -   x1,...,xn: n entradas (número de variables independientes)
+    -   {y1,...,ym}: son los posibles valores de la clase objetivo
+
+## Perceptrón Multicapa Arquitectura {.smaller}
+
+![](images/image-mlp.png)
+
+## Posibles fronteras de decisión {.smaller}
+
+-   Si usamos una función de activación de tipo threshold, podemos tener las siguientes fronteras:
+    -   Una capa: línea/hiperplano
+    -   Dos capas: superficie convexa
+    -   Tres capas: fronteras arbitrarias
+
+![](images/image-89817222.png)
+
+-   Con una función de activación sigmoidea podemos conseguir fronteras arbitrarias con sólo dos capas
+
+## Solución al problema del xor {.smaller}
+
+![](images/image-2096173787.png)
+
+## Entrenando MLP
+
+-   En el caso de los MLPs, el aprendizaje se divide en dos partes
+    -   Por un lado, tenemos una primera pasada (forward pass) que calcula la salida a partir de la entrada, pasando por todas las capas intermedias
+    -   Por otro lado, tenemos una segunda pasada (error backpropagation) donde se ajustan los pesos de todos los arcos
+-   La primera fase es una extensión de lo que hacíamos anteriormente. Veamos la segunda...
+
+## Algoritmo backpropagation {.smaller}
+
+-   Descripción:
+    -   Tras inicializar los pesos de forma aleatoria y con valores pequeños, seleccionamos el primer par de entrenamiento.
+    -   Calculamos la salida de la red
+    -   Calculamos la diferencia entre la salida real de la red y la salida deseada, con lo que obtenemos el vector de error
+    -   Ajustamos los pesos de la red de forma que se minimice el error
+    -   Repetimos los tres pasos anteriores para cada par de entrenamiento hasta que el error para todos los conjuntos de entrenamiento sea aceptable.
+    -   Para cada entrenamiento múltiple «epochs» (conjuntos de entrenamiento)
+
+## Algoritmo backpropagation 2 {.smaller}
+
+![](images/image-1543861572.png)
+
+## Algunas consideraciones sobre los MLP
+
+-   Al usar Gradient Descent, necesitamos calcular la derivada de la función de coste
+-   Es conveniente normalizar los datos de entrada para agilizar los cálculos
+-   Regularización: Añade una penalización a valores de W altos
+
+## Teorema de Cybenko {.smaller}
+
+-   Un perceptrón multicapa, con una capa oculta, es capaz de establecer un mapeo entre dos conjuntos de datos cualesquiera (Teorema de Cybenko).
+-   Por lo tanto, cuando se aplica el perceptrón multicapa a un problema real para aproximar una función continua y no se consigue la precisión deseada es porque no se ha conseguido una determinación adecuada de los pesos sinápticos de la red o no se ha utilizado el número apropiado de unidades de proceso en la capa oculta
+-   Probemos a solucionar problemas más complejos: <https://playground.tensorflow.org>
+
+## Si son tan potentes ¿por qué sufrieron un largo invierno las ANN? {.smaller}
+
+-   Hinton concretó algunos de los problemas históricos:
+    -   Nuestros conjuntos de datos etiquetados eran muy pequeños
+    -   Nuestros ordenadores eran millones demasiado lentos
+    -   Inicializamos los pesos de forma estúpida.
+    -   Utilizamos el tipo incorrecto de no linealidad.
+
+## Interpretabilidad de la ANN
+
+-   Las ANNs no son interpretables.
+-   Veamos la siguiente comparación entre un árbol y una red neuronal
+
+![](images/image-1254155885.png)
+
+
+
+
+## ¿Cómo decidimos el número de capas ocultas? {.smaller}
+
+-   El número de capas puede determinar el tipo de fronteras que pueden generarse
+    -   En muchos casos, dos capas (una oculta) y una función de activación sigmoidea son muy efectivas en problemas de reconocimiento de patrones y clasicación
+    -   Existe un interés creciente en las llamadas redes profundas
+    -   Cuantas más capas ocultas añadamos, más costoso, computacionalmente hablando, es el algoritmo
+
+## ¿Cómo decidimos el número de neuronas por capa? {.smaller}
+
+-   El número de neuronas de la capa de entrada está determinada por las dimensiones del problema
+-   Y el de la capa de salida por el número de clases
+-   El número de neuronas ocultas es una decisión de diseño
+    -   Si usamos pocas neuronas, la red será incapaz de modelar fronteras complejas
+    -   Si usamos demasiadas, la red tendrá problemas para generalizar (sobreajuste)
+-   Lo más recomendable es usar validación cruzada
+
+## Ejemplo R de ANN {.smaller}
+
+-   Previamente a este ejemplo se ha debido de realizar el proceso de hold-out @sec-hold-out-r
+
+```{r}
+#| echo: true
+#| warning: false
+
+#############################################
+## ANN
+#############################################
+
+# librerías del modelo
+if(!require('nnet')) install.packages('nnet', repos = "http://cran.us.r-project.org")
+library(nnet)
+
+# construcción del modelo y entrenamiento
+fitControl <- trainControl(method="none",classProbs=T,number = 1)
+md_ann <- train(form, 
+                data=Xy_train, 
+                method="nnet", 
+                preProcess="center",
+                trControl=fitControl)
+
+# predicción del conjunto de test
+y_pred <- predict(md_ann, newdata=Xy_test[,-y])
+
+# dataframe con datos entrada y prediccion
+o_pred = data.frame(Xy_test,pred=y_pred)
+head(o_pred)
+
+# matriz de confusión y métricas de precisión
+mc <- caret::confusionMatrix (y_pred, Xy_test[,y])
+mc
+
+# obtención probabilidad de cada clase de la variable objetivo
+y_test_proba_predict <- predict(md_ann, newdata=Xy_test[,-y], type = "prob")
+head(y_test_proba_predict)
+
+# Se añade la data.frame la probabilidad de cada clase
+o_pred <- data.frame(o_pred,y_test_proba_predict )
+str(o_pred)
+
+# curvas roc
+roc_setosa = data.frame(o_pred$setosa, Xy_test[,y] == "setosa")
+colnames(roc_setosa) = c("predict", "label");
+pred_setosa = prediction(roc_setosa$predict, roc_setosa$label);
+perf_setosa = performance(pred_setosa, "tpr", "fpr");
+
+roc_virginica = data.frame(o_pred$virginica, Xy_test[,y] == "virginica")
+colnames(roc_virginica) = c("predict", "label");
+pred_virginica = prediction(roc_virginica$predict, roc_virginica$label);
+perf_virginica = performance(pred_virginica, "tpr", "fpr");
+
+roc_versicolor = data.frame(o_pred$versicolor, Xy_test[,y] == "versicolor")
+colnames(roc_versicolor) = c("predict", "label");
+pred_versicolor = prediction(roc_versicolor$predict, roc_versicolor$label);
+perf_versicolor = performance(pred_versicolor, "tpr", "fpr");
+
+plot(perf_setosa)
+plot(perf_virginica)
+plot(perf_versicolor)
+
+```
+
+## Ejemplo Python ANN {.smaller}
+
+-   Previamente a este ejemplo se ha debido de realizar el proceso de hold-out @sec-hold-out-python
+
+```{python}
+#| echo: true
+
+#############################################
+## ANN
+#############################################
+
+# construcción del modelo
+from sklearn.neural_network import MLPClassifier
+
+np.random.seed(123)
+md_ann = MLPClassifier(max_iter=600)
+md_ann.fit(X_train_scaled, y_train)
+
+# predicción del conjunto de test
+y_pred = md_ann.predict(X_test_scaled)
+
+# matriz de confusión y métricas de precisión
+print(confusion_matrix(y_test, y_pred))
+print(classification_report(y_test, y_pred))
+
+```
+
+## Ejemplo Python ANN 2 {.smaller}
+
+```{python}
+#| echo: true
+
+# obtención probabilidad de cada clase de la variable objetivo
+y_test_proba_predict = md_ann.predict_proba(X_test_scaled)
+
+# curva roc
+import scikitplot as skplt # %pip install scikit-plot
+
+skplt.metrics.plot_roc(y_true=y_test, y_probas=y_test_proba_predict)
+plt.show()
+
+```
+
+## Probando el perceptrón con Tensorflow en Python {.smaller}
+
+```{python}
+#| echo: true
+#| eval: false
+
+# Librerias necesarias
+import tensorflow as tf
+from tensorflow import keras
+import numpy as np
+import matplotlib.pyplot as plt
+
+# versión de tensorflow
+tf.__version__
+
+# Datos a aprender
+n_hab = np.array([1,2,3,4,5,6], dtype=float)
+
+precio = np.array([1,1.5,2,2.5,3,3.5], dtype=float)
+
+# Visualización de los datos
+plt.plot(n_hab,precio, "o")
+
+###############################################
+# MLP con 1 capa
+###############################################
+
+# La definición del modelo toma una lista de capas como parámetro 
+# que especifica el orden de cálculo desde la entrada a la salida:
+# - input_shape=[1] — Especifica que la entrada a la capa tiene un valor simple (x1)
+# - units=1 — Número de neuronas en la capa. 
+
+capa = tf.keras.layers.Dense(units=1,input_shape=[1])
+md_vivienda = tf.keras.Sequential([capa])
+
+# Se compila el modelo con dos parámetros:
+# - Loss function — Una forma de medir lo lejos que están las predicciones del resultado deseado. 
+#                 (La diferencia se llama pérdida o "loss".)
+# - Optimizer function — Una forma de ajustar los valores internos para reducir la pérdida con tasa aprendizaje
+
+md_vivienda.compile(optimizer=tf.keras.optimizers.Adam(0.1), loss="mean_squared_error")
+
+# resumen del modelo
+md_vivienda.summary()
+
+# Se entrena el modelo
+historial = md_vivienda.fit(x=n_hab, y=precio, epochs=30, verbose=False)
+print("modelo entrenado")
+
+# Parámetros de history
+historial.params
+
+# Se visualiza la evolución de loss
+plt.xlabel('Épocas')
+plt.ylabel("Pérdida")
+plt.plot(historia.history["loss"])
+plt.show()
+
+# Usamos el modelo para predecir nuevos casos
+print(md_vivienda.predict([7.0]))
+
+# Pesos de las capas
+ecuacion = capa.get_weights()
+print(ecuacion)
+print("precio_vivienda = " + str(float(ecuacion[0][0])) + " * n_habitaciones + " + (str(float(ecuacion[1][0]))))
+
+###############################################
+# MLP con 2 capas ocultas
+###############################################
+oculta1 = tf.keras.layers.Dense(units=3,input_shape=[1])
+oculta2 = tf.keras.layers.Dense(units=3)
+salida = tf.keras.layers.Dense(units=1)
+
+md_vivienda2 = tf.keras.Sequential([oculta1, oculta2, salida])
+
+# se compila modelo
+md_vivienda2.compile(optimizer=tf.keras.optimizers.Adam(0.1), loss="mean_squared_error")
+
+# Se entrena el modelo
+historial2 = md_vivienda2.fit(x=n_hab, y=precio, epochs=100, verbose=False)
+print("modelo entrenado")
+
+# Se visualiza la evolución de loss
+plt.xlabel('Épocas')
+plt.ylabel("Pérdida")
+plt.plot(historial2.history["loss"])
+plt.show()
+
+print(md_vivienda2.predict([7.0]))
+
+```
+
+# Bagging. Random Forest
+
+## Introducción al ensamble {.smaller}
+
+-   A veces puede darse el caso en que ninguno de los modelos hasta ahora presentados proporciona resultados convincentes para nuestro problema.
+-   El aprendizaje ensamblado es un paradigma que en lugar de entrenar un modelo muy preciso se centra en entrenar un gran número de modelos con baja precisión y después combinar sus predicciones para obtener un metamodelo una precisión más alta.
+-   Los modelos de baja precisión son entrenados por algoritmos débiles, es decir, algoritmos incapaces de aprender modelos complejos
+-   generalmente son rápidos tanto en tiempos de entrenamiento como de procesamiento.
+-   Existen dos paradigmas de aprendizaje ensamblado:
+    -   el bagging
+    -   el boosting.
+
+## Bagging {.smaller}
+
+-   En vez de buscar la división más eficiente en cada capa como ocurre en el árbol de decisión, una alternativa sería construir multiples árboles de decisión y combinar sus resultados.
+-   Esta técnica se conoce como bagging y consiste en hacer crecer varios árboles utilizando una selección aleatoria de los datos que se usan para cada árbol
+-   Combinando la predicción de cada uno de ellos a través de la media, en el caso de regresión, o mediante un sistema de votación, en el caso de un problema de clasificación
+-   La técnica se podría emplear de forma similar con otros clasificadores distintos a los árboles
+
+## Boostrap {.smaller}
+
+-   La principal característica del bagging es el llamado muestreo bootstrap.
+-   La intuición tras esto es que para que los árboles generen una respuesta única, debe existir aleatoriedad y variación en cada árbol que conforme el modelo final
+-   no tendría sentido construir varios árboles identicos.
+-   Este problema queda resuelto por el muestreo bootstrap, el cual extrae una variación aleatoria de los datos en cada ronda.
+-   En el caso del bagging, se ejecutan distintas muestras de datos para el entrenamiento de cada árbol.
+-   el bagging es una técnica de gran eficacia para el tratamiento de los valores atipicos que generalmente afecta a un único árbol de decisión.
+
+## Introducción al Random Forest
+
+-   El bagging es el paradigma tras el algoritmo de Random Forest.
+-   Este algoritmo fue desarrollado por primera vez por Tin Kam Ho en 1995
+-   Sin embargo, fueron Cutler y Breiman quienes desarrollaron una versión extendida del modelo y registraron **Random Forest** como marca comercial.
+
+## Random Forest. Algoritmo {.smaller}
+
+-   El algoritmo básico de bagging funciona del siguiente modo:
+    -   a partir del conjunto de entrenamiento, se generan $K$ muestras aleatorias $\mathbb{S}_{k}$
+    -   se entrena un modelo de árbol de decisión $f_k$ utilizando cada muestra $\mathbb{S}_{k}$ como el conjunto de entrenamiento.
+    -   tras el entrenamiento, se dispone de $K$ árboles de decisión.
+    -   La predicción de una nueva observación $x$ se obtiene como la media de las $K$ predicciones:
+
+```{=tex}
+\begin{equation}
+y\leftarrow\hat{f}(x)=\frac{1}{K}\sum^{K}_{k=1}f_{k}(x)
+\end{equation}
+```
+en el caso de regresión, o por la mayoría de votación en el caso de clasificación.
+
+## Características de Random Forest {.smaller}
+
+-   Suele ser mejor que esté formado por una gran cantidad de árboles (por lo menos 100) para suavizar el impacto de valores atípicos. Sin embargo, la tasa de efectividad disminuye a medida que se incorporan más árboles. Llegado a cierto punto, los nuevos árboles no aportan una mejora significativa al modelo pero si incrementan los tiempos de procesamiento.
+-   El modelo Random Forest es rápido de entrenar y es una buena técnica para obtener un modelo de referencia. Finalmente, aunque estos modelos funcionan bien en la interpretación de patrones complejos y son versatiles, otras técnicas, como por ejemplo el gradient boosting, proporcionan una mayor precisión en las predicciones.
+-   Son populares porque tienden a proporcionar un muy buen rendimiento con los modelos predeterminados. A pesar de tener muchos hiperparametros, los valores por defecto de estos tienden a ofrecer buenos resultados en la predicción. Los hiperparametros más importantes que hay que ajustar son: el número de árboles ($K$), el numero de variables incluidos en el subconjunto aleatorio en cada división ($mtry$), la complejidad de cada árbol, el esquema de muestreo y la regla de división a utilizar durante la construcción del árbol.
+
+## Ejemplo gráfico de Random Forest {.smaller}
+
+![](images/image-786828792.png)
+
+## Ejemplo R de Random Forest {.smaller}
+
+-   Previamente a este ejemplo se ha debido de realizar el proceso de hold-out @sec-hold-out-r
+
+```{r}
+#| echo: true
+#| warning: false
+
+#############################################
+## RF
+#############################################
+
+# librerías del modelo
+if(!require('randomForest')) install.packages('randomForest', repos = "http://cran.us.r-project.org")
+library(randomForest)
+
+# construcción del modelo y entrenamiento
+fitControl <- trainControl(method="none",classProbs=T,number = 1)
+md_rf <- train(form, 
+               data=Xy_train, 
+               method="rf", 
+               trControl=fitControl)
+
+# predicción del conjunto de test
+y_pred <- predict(md_rf, newdata=Xy_test[,-y])
+
+# dataframe con datos entrada y prediccion
+o_pred = data.frame(Xy_test,pred=y_pred)
+head(o_pred)
+
+# matriz de confusión y métricas de precisión
+mc <- caret::confusionMatrix (y_pred, Xy_test[,y])
+mc
+
+# obtención probabilidad de cada clase de la variable objetivo
+y_test_proba_predict <- predict(md_rf, newdata=Xy_test[,-y], type = "prob")
+head(y_test_proba_predict)
+
+# Se añade la data.frame la probabilidad de cada clase
+o_pred <- data.frame(o_pred,y_test_proba_predict )
+str(o_pred)
+
+# curvas roc
+roc_setosa = data.frame(o_pred$setosa, Xy_test[,y] == "setosa")
+colnames(roc_setosa) = c("predict", "label");
+pred_setosa = prediction(roc_setosa$predict, roc_setosa$label);
+perf_setosa = performance(pred_setosa, "tpr", "fpr");
+
+roc_virginica = data.frame(o_pred$virginica, Xy_test[,y] == "virginica")
+colnames(roc_virginica) = c("predict", "label");
+pred_virginica = prediction(roc_virginica$predict, roc_virginica$label);
+perf_virginica = performance(pred_virginica, "tpr", "fpr");
+
+roc_versicolor = data.frame(o_pred$versicolor, Xy_test[,y] == "versicolor")
+colnames(roc_versicolor) = c("predict", "label");
+pred_versicolor = prediction(roc_versicolor$predict, roc_versicolor$label);
+perf_versicolor = performance(pred_versicolor, "tpr", "fpr");
+
+plot(perf_setosa)
+plot(perf_virginica)
+plot(perf_versicolor)
+
+```
+
+## Ejemplo Python Random Forest {.smaller}
+
+-   Previamente a este ejemplo se ha debido de realizar el proceso de hold-out @sec-hold-out-python
+
+```{python}
+#| echo: true
+
+#############################################
+## Random Forest
+#############################################
+
+# construcción del modelo
+from sklearn.ensemble import RandomForestClassifier
+
+np.random.seed(123)
+md_rf = RandomForestClassifier()
+md_rf.fit(X_train, y_train)
+
+# predicción del conjunto de test
+y_pred = md_rf.predict(X_test)
+
+# matriz de confusión y métricas de precisión
+print(confusion_matrix(y_test, y_pred))
+print(classification_report(y_test, y_pred))
+
+```
+
+## Ejemplo Python Random Forest 2 {.smaller}
+
+```{python}
+#| echo: true
+
+# obtención probabilidad de cada clase de la variable objetivo
+y_test_proba_predict = md_rf.predict_proba(X_test)
+
+# curva roc
+import scikitplot as skplt # %pip install scikit-plot
+
+skplt.metrics.plot_roc(y_true=y_test, y_probas=y_test_proba_predict)
+plt.show()
+
+```
+
+# Bossting. XGboost
+
+## Introducción boosting {.smaller}
+
+-   La lógica de los algoritmos boosting es combinar modelos débiles para conseguir un modelo fuerte.
+-   En este caso, el término "débil" hace referencia a un modelo con poco poder predictivo pero mejor que una predicción aleatoria. Mientras que "fuerte" es considerado un buen predictor para los datos.
+-   Para llegar a un algoritmo fuerte a partir de varios modelos debiles es necesario introducir ponderaciones a los árboles basadas en las clasificaciones erroneas del árbol anterior.
+
+## Sobre ajuste vs boosting
+
+-   El boosting reduce el problema del sobreajuste utilizando menos árboles que un modelo Random Forest.
+-   Mientras que agregar más árboles al Random Forest ayuda a compensar el sobreajuste, también puede llevar a un aumento del mismo; y por ello hay que ser cauteloso a la hora de agregar nuevos árboles.
+-   El enfoque del boosting de apreder reiteradamente de los errores anteriores puede llevarle a generar sobreajuste.
+
+## Problemas boosting {.smaller}
+
+-   Aunque ese enfoque produce predicciones más precisas, muchas veces mejores a la mayoría de algoritmos, puede llevar a ajustar las observaciones atípicas.
+-   Por ello, el Random Forest es una técnica más recomendada para conjuntos de datos muy complejos con un gran número de observaciones atípicas.
+-   Otra de las grandes desventajas del boosting es que tiene unos elevados tiempos de procesamiento dado que su entrenamiento sigue una lógica secuencial. Puesto que un árbol debe esperar al anterior para ser entrenado, se limita la escalabilidad del modelo. Sobre todo cuando se agregan más árboles. Mientras tanto, un Random Forest entrena los árboles en paralelo, lo que hace que sea más rápido de procesar.
+-   El inconveniente que es aplicable tanto a los algoritmos de boosting como a los de bagging, es la perdidad de la simplicidad visual y la dificultad de interpretación que tienen respecto a un simple árbol de decisión.
+
+## Gradient boosting {.smaller}
+
+-   Uno de los algoritmos de boosting más famosos es el gradient boosting
+-   Mientras que el Random Forest seleccionaba combinaciones aleatorias de variables, el gradient boosting selecciona variables que mejoren la precisión con cada nuevo árbol.
+-   La construcción del modelo secuencial puesto que cada nuevo árbol se crea utilizando información derivada del árbol anterior, y en consecuencia no son independientes.
+-   En cada iteración se registran los errores cometidos en los datos de entrenamiento y se aplican a la siguiente ronda de datos de entrenamiento.
+-   Además, se agregan pesos a los datos basandose en los resultados de la iteración anterior.
+-   Las ponderaciones más altas se aplicarán a los datos que fueron errorneamente clasificados, y no se aplicará tanta atención a los bien clasificados.
+-   Este proceso se repite hasta que se llega a un nivel bajo de error.
+-   El resultado final se obtiene a través de la media ponderada de las predicciones de los árboles de decisión
+
+## Ejemplo gráfico de boosting {.smaller}
+
+![](images/image-1954953036.png)
+
+## Ejemplo R de XGboost {.smaller}
+
+-   Previamente a este ejemplo se ha debido de realizar el proceso de hold-out @sec-hold-out-r
+
+```{r}
+#| echo: true
+#| warning: false
+
+#############################################
+## XGB
+#############################################
+
+# librerías del modelo
+if(!require('xgboost')) install.packages('xgboost', repos = "http://cran.us.r-project.org")
+library(xgboost)
+
+# construcción del modelo y entrenamiento
+fitControl <- trainControl(method="none",classProbs=T,number = 1)
+md_xgb <- train(form, 
+               data=Xy_train, 
+               method="xgbLinear", 
+               trControl=fitControl)
+
+# predicción del conjunto de test
+y_pred <- predict(md_xgb, newdata=Xy_test[,-y])
+
+# dataframe con datos entrada y prediccion
+o_pred = data.frame(Xy_test,pred=y_pred)
+head(o_pred)
+
+# matriz de confusión y métricas de precisión
+mc <- caret::confusionMatrix (y_pred, Xy_test[,y])
+mc
+
+# obtención probabilidad de cada clase de la variable objetivo
+y_test_proba_predict <- predict(md_xgb, newdata=Xy_test[,-y], type = "prob")
+head(y_test_proba_predict)
+
+# Se añade la data.frame la probabilidad de cada clase
+o_pred <- data.frame(o_pred,y_test_proba_predict )
+str(o_pred)
+
+# curvas roc
+roc_setosa = data.frame(o_pred$setosa, Xy_test[,y] == "setosa")
+colnames(roc_setosa) = c("predict", "label");
+pred_setosa = prediction(roc_setosa$predict, roc_setosa$label);
+perf_setosa = performance(pred_setosa, "tpr", "fpr");
+
+roc_virginica = data.frame(o_pred$virginica, Xy_test[,y] == "virginica")
+colnames(roc_virginica) = c("predict", "label");
+pred_virginica = prediction(roc_virginica$predict, roc_virginica$label);
+perf_virginica = performance(pred_virginica, "tpr", "fpr");
+
+roc_versicolor = data.frame(o_pred$versicolor, Xy_test[,y] == "versicolor")
+colnames(roc_versicolor) = c("predict", "label");
+pred_versicolor = prediction(roc_versicolor$predict, roc_versicolor$label);
+perf_versicolor = performance(pred_versicolor, "tpr", "fpr");
+
+plot(perf_setosa)
+plot(perf_virginica)
+plot(perf_versicolor)
+
+```
+
+## Ejemplo Python XGboost {.smaller}
+
+-   Previamente a este ejemplo se ha debido de realizar el proceso de hold-out @sec-hold-out-python
+
+```{python}
+#| echo: true
+
+#############################################
+## Xgboots
+#############################################
+
+# construcción del modelo
+from sklearn.ensemble import GradientBoostingClassifier
+
+np.random.seed(123)
+md_xgb = GradientBoostingClassifier()
+md_xgb.fit(X_train, y_train)
+
+# predicción del conjunto de test
+y_pred = md_xgb.predict(X_test)
+
+# matriz de confusión y métricas de precisión
+print(confusion_matrix(y_test, y_pred))
+print(classification_report(y_test, y_pred))
+
+# obtención probabilidad de cada clase de la variable objetivo
+y_test_proba_predict = md_xgb.predict_proba(X_test)
+
+```
+
+## Ejemplo Python XGboost 2 {.smaller}
+
+```{python}
+#| echo: true
+
+# curva roc
+import scikitplot as skplt # %pip install scikit-plot
+
+skplt.metrics.plot_roc(y_true=y_test, y_probas=y_test_proba_predict)
+plt.show()
+
+```
