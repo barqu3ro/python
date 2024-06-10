@@ -1,0 +1,202 @@
+[
+  {
+    "id": "e54340ee-cc7d-4995-93a8-146fdd3ce5cf",
+    "data": [
+      {
+        "text": "Por favor recoger paquete para enviar a ",
+        "userDefined": false
+      },
+      {
+        "text": "Heredia",
+        "meta": "@sys.location",
+        "alias": "Destino_recogida",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "lang": "es",
+    "updated": 0
+  },
+  {
+    "id": "f8d0fd6a-44b0-4ffe-9f66-97a664366458",
+    "data": [
+      {
+        "text": "Por favor recoger paquete el ",
+        "userDefined": false
+      },
+      {
+        "text": "lunes",
+        "meta": "@sys.date",
+        "alias": "Fecha_recogida",
+        "userDefined": true
+      },
+      {
+        "text": " a las ",
+        "userDefined": false
+      },
+      {
+        "text": "5:30 p.m.",
+        "meta": "@sys.time",
+        "alias": "hora_recogida",
+        "userDefined": true
+      },
+      {
+        "text": " en ",
+        "userDefined": false
+      },
+      {
+        "text": "Ciudad Quesada",
+        "meta": "@sys.location",
+        "alias": "Origen",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "lang": "es",
+    "updated": 0
+  },
+  {
+    "id": "ced3415e-70ee-478c-ac23-7f2a829d9498",
+    "data": [
+      {
+        "text": "Recoger ",
+        "userDefined": false
+      },
+      {
+        "text": "mañana",
+        "meta": "@sys.date",
+        "alias": "Fecha_recogida",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "lang": "es",
+    "updated": 0
+  },
+  {
+    "id": "de0f6011-ee7c-4c3b-aed6-54e599b8c998",
+    "data": [
+      {
+        "text": "Recoger el paquete en ",
+        "userDefined": false
+      },
+      {
+        "text": "Ciudad Quesada San Carlos, a",
+        "meta": "@sys.location",
+        "alias": "Origen",
+        "userDefined": true
+      },
+      {
+        "text": " las ",
+        "userDefined": false
+      },
+      {
+        "text": "4:40 p.m",
+        "meta": "@sys.time",
+        "alias": "hora_recogida",
+        "userDefined": true
+      },
+      {
+        "text": ".",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "lang": "es",
+    "updated": 0
+  },
+  {
+    "id": "c7cb526c-1245-4538-be39-223d2739c7b9",
+    "data": [
+      {
+        "text": "Recoger el paquete en ",
+        "userDefined": false
+      },
+      {
+        "text": "Ciudad Quesada",
+        "meta": "@sys.location",
+        "alias": "Origen",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "lang": "es",
+    "updated": 0
+  },
+  {
+    "id": "d62868ff-f280-4cde-8788-12ad01b01334",
+    "data": [
+      {
+        "text": "Recoger un paquete en ",
+        "userDefined": false
+      },
+      {
+        "text": "Irlanda",
+        "meta": "@sys.location",
+        "alias": "Origen",
+        "userDefined": true
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "lang": "es",
+    "updated": 0
+  },
+  {
+    "id": "123d3b5f-6f88-41f2-8c72-29074e592de1",
+    "data": [
+      {
+        "text": "Por favor vengan a por un paquete",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "lang": "es",
+    "updated": 0
+  },
+  {
+    "id": "47ae3709-0768-4e9d-bece-9a481d7c1fae",
+    "data": [
+      {
+        "text": "Quiero enviar un paquete",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "lang": "es",
+    "updated": 0
+  },
+  {
+    "id": "1198fad7-051a-4830-9321-2d37f756ba3f",
+    "data": [
+      {
+        "text": "Necesito que vengan a recoger un paquete",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "lang": "es",
+    "updated": 0
+  },
+  {
+    "id": "3599028d-6216-46e0-a230-344e887aa0a7",
+    "data": [
+      {
+        "text": "Favor recoger paquete",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "lang": "es",
+    "updated": 0
+  }
+]

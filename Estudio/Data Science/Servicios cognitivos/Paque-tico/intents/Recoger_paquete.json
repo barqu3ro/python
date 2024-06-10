@@ -1,0 +1,138 @@
+{
+  "id": "94ee6123-934b-429b-90d7-975db4e98915",
+  "name": "Recoger_paquete",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "",
+      "affectedContexts": [],
+      "parameters": [
+        {
+          "id": "b6d83daf-d15e-460b-8da6-93e21bffc237",
+          "name": "Origen",
+          "required": true,
+          "dataType": "@sys.location",
+          "value": "$Origen",
+          "defaultValue": "",
+          "isList": false,
+          "prompts": [
+            {
+              "lang": "es",
+              "value": "Dónde hay que recoger el paquete?"
+            },
+            {
+              "lang": "es",
+              "value": "Me das la dirección para recoger el paquete?"
+            }
+          ],
+          "promptMessages": [],
+          "noMatchPromptMessages": [],
+          "noInputPromptMessages": [],
+          "outputDialogContexts": []
+        },
+        {
+          "id": "aa5a69ce-8af1-485f-a3d1-1728325bc906",
+          "name": "hora_recogida",
+          "required": true,
+          "dataType": "@sys.time",
+          "value": "$hora_recogida",
+          "defaultValue": "",
+          "isList": false,
+          "prompts": [
+            {
+              "lang": "es",
+              "value": "Dime a qué hora pasamos por el paquete?"
+            },
+            {
+              "lang": "es",
+              "value": "A qué hora pasamos?"
+            },
+            {
+              "lang": "es",
+              "value": "A qué hora recogemos?"
+            }
+          ],
+          "promptMessages": [],
+          "noMatchPromptMessages": [],
+          "noInputPromptMessages": [],
+          "outputDialogContexts": []
+        },
+        {
+          "id": "3f4f645a-fbee-4eb8-9027-d09151bdd07a",
+          "name": "Fecha_recogida",
+          "required": true,
+          "dataType": "@sys.date",
+          "value": "$Fecha_recogida",
+          "defaultValue": "",
+          "isList": false,
+          "prompts": [
+            {
+              "lang": "es",
+              "value": "En qué fecha pasamos por el paquete?"
+            },
+            {
+              "lang": "es",
+              "value": "Cuándo pasamos por el paquete?"
+            }
+          ],
+          "promptMessages": [],
+          "noMatchPromptMessages": [],
+          "noInputPromptMessages": [],
+          "outputDialogContexts": []
+        },
+        {
+          "id": "9615f142-3016-432e-b6f9-b288087842f3",
+          "name": "Destino_recogida",
+          "required": true,
+          "dataType": "@sys.location",
+          "value": "$Destino_recogida",
+          "defaultValue": "",
+          "isList": false,
+          "prompts": [
+            {
+              "lang": "es",
+              "value": "Dónde quieres que entreguemos el paquete?"
+            },
+            {
+              "lang": "es",
+              "value": "La entrega del paquete dónde sería?"
+            },
+            {
+              "lang": "es",
+              "value": "A qué dirección quieres enviarlo?"
+            }
+          ],
+          "promptMessages": [],
+          "noMatchPromptMessages": [],
+          "noInputPromptMessages": [],
+          "outputDialogContexts": []
+        }
+      ],
+      "messages": [
+        {
+          "type": "0",
+          "title": "",
+          "textToSpeech": "",
+          "lang": "es",
+          "speech": [
+            "Claro quieres hacer un envío, lo recogemos en $Origen",
+            "Con gusto, lo recogemos el $Fecha_recogida a las $Hora_recogida",
+            "Con todo gusto, lo recojemos en $Origen, el $Fecha_recogida a las $Hora_recogida para entregar en $Destino_recogida"
+          ],
+          "condition": ""
+        }
+      ],
+      "speech": []
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": true,
+  "webhookForSlotFilling": true,
+  "fallbackIntent": false,
+  "events": [],
+  "conditionalResponses": [],
+  "condition": "",
+  "conditionalFollowupEvents": []
+}

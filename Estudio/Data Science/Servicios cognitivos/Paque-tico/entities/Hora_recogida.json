@@ -1,0 +1,9 @@
+{
+  "id": "e24a02a0-6150-40f3-ae4d-52da1d1bae06",
+  "name": "Hora_recogida",
+  "isOverridable": true,
+  "isEnum": false,
+  "isRegexp": false,
+  "automatedExpansion": false,
+  "allowFuzzyExtraction": false
+}

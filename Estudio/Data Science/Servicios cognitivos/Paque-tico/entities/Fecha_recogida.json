@@ -1,0 +1,9 @@
+{
+  "id": "4317be59-3777-4065-b4ab-067ae1a86d5d",
+  "name": "Fecha_recogida",
+  "isOverridable": true,
+  "isEnum": false,
+  "isRegexp": false,
+  "automatedExpansion": false,
+  "allowFuzzyExtraction": false
+}

@@ -1,0 +1,9 @@
+{
+  "id": "7756a83f-c292-4276-948b-0e1d6efcf5af",
+  "name": "Destino_recogida",
+  "isOverridable": true,
+  "isEnum": false,
+  "isRegexp": false,
+  "automatedExpansion": false,
+  "allowFuzzyExtraction": false
+}
