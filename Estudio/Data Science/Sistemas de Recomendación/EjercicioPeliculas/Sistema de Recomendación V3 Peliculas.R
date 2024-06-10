@@ -18,13 +18,14 @@ if(!require("tm")){
 
 ##### 2. Bloque de parametros iniciales #####
 
-setwd("D:/Documentos, Trabajos y Demás/Formación/ENAE/202104")
+
+setwd("/Users/jorgebarquero/GitRepos/python/Estudio/Data Science/Sistemas de Recomendación/EjercicioPeliculas")
 
 ## -------------------------------------------------------------------------
 
 ##### 3. Bloque de carga de informacion #####
 
-Peliculas=read.csv2("dataset Peliculas.csv", stringsAsFactors = FALSE,encoding = "WINDOWS-1252",fileEncoding = "WINDOWS-1252")
+Peliculas=read.csv2("data/dataset Peliculas.csv", stringsAsFactors = FALSE,encoding = "WINDOWS-1252",fileEncoding = "WINDOWS-1252")
 
 ## -------------------------------------------------------------------------
 
